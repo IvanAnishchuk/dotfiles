@@ -135,3 +135,7 @@ let g:syntastic_check_on_open=1
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+"Enable spellchecking
+set spelllang=en_us,ru_yo
+set spell
