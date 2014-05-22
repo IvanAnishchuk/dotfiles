@@ -2,6 +2,10 @@
   default = current
 [color]
   ui = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
 [alias]
   aa = add --all
   ap = add --patch
@@ -15,6 +19,7 @@
   st = status
   up = !git fetch origin && git rebase origin/master
 [core]
+  editor = vim
   excludesfile = ~/.gitignore
   autocrlf = input
 [merge]

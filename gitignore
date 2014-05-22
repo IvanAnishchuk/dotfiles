@@ -7,5 +7,7 @@ log/*.log
 rerun.txt
 tags
 tmp/**/*
-!tmp/cache/.keep
-zeus.json
+env
+venv
+*~
+*.bak
