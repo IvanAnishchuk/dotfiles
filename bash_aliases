@@ -3,13 +3,18 @@ alias tlf="tail -f"
 alias ln='ln -v'
 alias mkdir='mkdir -p'
 alias ...='../..'
-alias l='ls'
-alias ll='ls -al'
+
+# ls
+alias l='ls -CF'
+alias ll='ls -alF'
+alias la='ls -A'
 alias lh='ls -Alh'
-alias -g G='| grep'
-alias -g M='| less'
-alias -g L='| wc -l'
-alias -g ONE="| awk '{ print \$1}'"
+
+# FIXME: -g? zsh stuff?
+#alias -g G='| grep'
+#alias -g M='| less'
+#alias -g L='| wc -l'
+#alias -g ONE="| awk '{ print \$1}'"
 alias e="$EDITOR"
 alias v="$VISUAL"
 
@@ -32,3 +37,6 @@ alias z="zeus"
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
+
+# Net stuff
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
