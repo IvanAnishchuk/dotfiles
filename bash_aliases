@@ -40,3 +40,6 @@ alias z="zeus"
 
 # Net stuff
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+# mplayer
+alias mplayer6='mplayer -af pan=2:1:.39:.6:.6:.39:.17:-.17:-.17:.17:.32:.32:.33:.33 -channels 2'
