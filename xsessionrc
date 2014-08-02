@@ -1,0 +1,2 @@
+# My favorite layout settings at the moment
+setxkbmap -layout us,ru -option grp:shifts_toggle,grp_led:caps,compose:rwin,compose:lwin,caps:swapescape
