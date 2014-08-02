@@ -43,13 +43,12 @@ augroup vimrcEx
 
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
 
   " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
+  autocmd FileType mkd setlocal spell
 
   " Automatically wrap at 80 characters for Markdown
-  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+  "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 augroup END
 
 " Softtabs, 2 spaces
@@ -103,6 +102,8 @@ map <Leader>ct :!ctags -R .<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
+
+let g:vim_markdown_initial_foldlevel=999
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>

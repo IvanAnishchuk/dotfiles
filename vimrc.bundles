@@ -30,6 +30,8 @@ Bundle 'z2v/vim-yo-spell'
 Bundle 'anishchuk-ia/pychimp-vim'
 Bundle 'anishchuk-ia/fb2-vim'
 Bundle 'anishchuk-ia/spell-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
