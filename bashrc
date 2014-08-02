@@ -8,6 +8,9 @@ case $- in
       *) return;;
 esac
 
+# Enable vi mode -- the only thing bash is good at
+set -o vi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -100,6 +103,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
+
 # FIXME: check how's it work on gentoo and such
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -111,3 +118,25 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+export EDITOR=vim
+export PAGER=less
+export VISUAL=vim
+# Gems
+export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
+
+export LANG="en_CA.UTF-8"
+export LANGUAGE="en_CA.UTF-8"
+export LC_CTYPE="en_CA.UTF-8"
+export LC_NUMERIC="en_CA.UTF-8"
+export LC_TIME="en_CA.UTF-8"
+export LC_COLLATE="en_CA.UTF-8"
+export LC_MONETARY="en_CA.UTF-8"
+export LC_MESSAGES="en_CA.UTF-8"
+export LC_PAPER="en_CA.UTF-8"
+export LC_NAME="en_CA.UTF-8"
+export LC_ADDRESS="en_CA.UTF-8"
+export LC_TELEPHONE="en_CA.UTF-8"
+export LC_MEASUREMENT="en_CA.UTF-8"
+export LC_IDENTIFICATION="en_CA.UTF-8"
+export LC_ALL="en_CA.UTF-8"

@@ -1,0 +1,64 @@
+# Use vi-mode
+set editing-mode vi
+
+# Show all completions as soon as I press tab, even if there's more than one
+set show-all-if-ambiguous on
+# Ignore case
+set completion-ignore-case on
+# on menu-complete, first display the common prefix, then cycle through the
+# options when hitting TAB
+menu-complete-display-prefix on
+
+# Should work for any mode
+# Fix word forward/backward with control-right/control-left
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+
+# Same thing but doesn't work in my terminals
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+$if mode=vi
+    set keymap vi-command
+    "gg": beginning-of-history
+    "G": end-of-history
+    "k": history-search-backward
+    "j": history-search-forward
+    "?": reverse-search-history
+    "/": forward-search-history
+    # Insert the arguments from the last command
+    "p": "i !!*\r"
+    # History with up/down
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+
+    set keymap vi-insert
+    "\C-l": clear-screen
+    "\C-w": backward-kill-word
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
+    # Pressing tab will list all completions & select the first one. Pressing it 
+    # again will cycle through available completions.
+    TAB: menu-complete
+    # Shift-TAB cycles completions backward
+    "\e[Z": menu-complete-backward
+
+    # up/down should also apply to insert mode
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+
+    # Needed because binding 'p' in command mode above wipes its insert mode
+    # function, too. This fixes that, and will insert 'p' when you type 'p'.
+    "p": self-insert
+$endif
+
+$if Bash
+    Space: magic-space
+$endif
+
+$if Python
+$endif
+
+# IPython needs this to appear at the bottom of the
+# # file for clear-screen to work
+set keymap vi
