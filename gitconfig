@@ -18,6 +18,7 @@
   pr = !hub pull-request
   st = status
   up = !git fetch origin && git rebase origin/master
+  unpull = reset --hard HEAD@{1}
 [core]
   editor = vim
   excludesfile = ~/.gitignore

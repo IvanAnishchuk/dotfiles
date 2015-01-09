@@ -140,3 +140,12 @@ export LC_TELEPHONE="en_CA.UTF-8"
 export LC_MEASUREMENT="en_CA.UTF-8"
 export LC_IDENTIFICATION="en_CA.UTF-8"
 export LC_ALL="en_CA.UTF-8"
+
+PERL_MB_OPT="--install_base \"/home/user/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/user/perl5"; export PERL_MM_OPT;
+
+# Python
+export PIP_DOWNLOAD_CACHE="/home/user/.pip_download_cache"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

@@ -40,6 +40,7 @@ alias z="zeus"
 
 # Net stuff
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias whois="whois -H"
 
-# mplayer
+# mplayer (downmixing 5.1 sound stream)
 alias mplayer6='mplayer -af pan=2:1:.39:.6:.6:.39:.17:-.17:-.17:.17:.32:.32:.33:.33 -channels 2'
