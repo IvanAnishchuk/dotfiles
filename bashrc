@@ -122,6 +122,7 @@ fi
 export EDITOR=vim
 export PAGER=less
 export VISUAL=vim
+export PATH=${HOME}/.bin:$PATH
 # Gems
 export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
 
@@ -129,23 +130,23 @@ export LANG="en_CA.UTF-8"
 export LANGUAGE="en_CA.UTF-8"
 export LC_CTYPE="en_CA.UTF-8"
 export LC_NUMERIC="en_CA.UTF-8"
-export LC_TIME="en_CA.UTF-8"
+export LC_TIME="en_DK.UTF-8"
 export LC_COLLATE="en_CA.UTF-8"
 export LC_MONETARY="en_CA.UTF-8"
 export LC_MESSAGES="en_CA.UTF-8"
-export LC_PAPER="en_CA.UTF-8"
+export LC_PAPER="en_GB.UTF-8"
 export LC_NAME="en_CA.UTF-8"
 export LC_ADDRESS="en_CA.UTF-8"
 export LC_TELEPHONE="en_CA.UTF-8"
 export LC_MEASUREMENT="en_CA.UTF-8"
 export LC_IDENTIFICATION="en_CA.UTF-8"
-export LC_ALL="en_CA.UTF-8"
+export LC_ALL=""
 
-PERL_MB_OPT="--install_base \"/home/user/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/user/perl5"; export PERL_MM_OPT;
+PERL_MB_OPT="--install_base \"${HOME}/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/${HOME}/perl5"; export PERL_MM_OPT;
 
 # Python
-export PIP_DOWNLOAD_CACHE="/home/user/.pip_download_cache"
+export PIP_DOWNLOAD_CACHE="${HOME}/.pip_download_cache"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

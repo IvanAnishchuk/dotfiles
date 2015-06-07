@@ -7,33 +7,40 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Define bundles via Github repos
-Bundle 'croaky/vim-colors-github'
-Bundle 'danro/rename.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'slim-template/vim-slim'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'vim-scripts/ctags.vim'
-Bundle 'vim-scripts/tComment'
-Bundle 'bling/vim-airline'
-Bundle 'klen/python-mode'
-Bundle 'z2v/vim-yo-spell'
-Bundle 'IvanAnishchuk/pychimp-vim'
-Bundle 'IvanAnishchuk/fb2-vim'
-Bundle 'IvanAnishchuk/spell-vim'
+Plugin 'croaky/vim-colors-github'
+Plugin 'danro/rename.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'vim-scripts/ctags.vim'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+" dont like it
+"Plugin 'Valloric/YouCompleteMe'
+"unmaintained shit
+"Bundle 'klen/python-mode'
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'junegunn/vader.vim'
+Plugin 'janko-m/vim-test'
+"Plugin 'tuxcanfly/ViMango'
+Plugin 'Chiel92/vim-autoformat'
+" Doesn't work
+"Plugin 'python-rope/ropevim'
+Plugin 'klen/rope-vim'
+Plugin 'IvanAnishchuk/pychimp-vim'
+Plugin 'IvanAnishchuk/fb2-vim'
+Plugin 'IvanAnishchuk/spell-vim'
+Plugin 'z2v/vim-yo-spell'
+Plugin 'plasticboy/vim-markdown'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

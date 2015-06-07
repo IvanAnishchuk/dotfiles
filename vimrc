@@ -80,30 +80,14 @@ highlight Folded  guibg=#0A0A0A guifg=#9090D0
 set number
 set numberwidth=5
 
-" Tab completion
-" will insert tab at beginning of line,
-" will use completion if not at beginning
-set wildmode=list:longest,list:full
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
+" Trying new mode switching
+inoremap jk <Esc>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
-let g:vim_markdown_initial_foldlevel=999
+"let g:vim_markdown_initial_foldlevel=999
+let g:vim_markdown_gfm=0
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
