@@ -25,6 +25,7 @@
   autocrlf = input
 [merge]
   ff = only
+  tool = meld
 [include]
   path = .gitconfig.local
 [commit]
