@@ -120,7 +120,7 @@ if ! shopt -oq posix; then
 fi
 
 export EDITOR=vim
-export PAGER=less
+export PAGER="less -M -x4"
 export VISUAL=vim
 export PATH=${HOME}/.bin:$PATH
 # Gems
