@@ -17,8 +17,8 @@ set autowrite     " Automatically :write before running commands
 set t_Co=256
 syntax on
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+if filereadable(expand("~/.config/nvim/plugins.vim"))
+  source ~/.config/nvim/plugins.vim
 endif
 
 filetype plugin indent on
@@ -101,11 +101,16 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+autocmd! BufWritePost * Neomake
+nnoremap <leader>j :lopen<CR>
+nnoremap <leader>k :lclose<CR>
+" TODO: any equivalent for newomake
+
+let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
@@ -119,12 +124,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-
 " Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
+if filereadable($HOME . "/.config/nvim/local.vim")
+  source ~/.config/nvim/local.vim
 endif
 
 "Enable spellchecking

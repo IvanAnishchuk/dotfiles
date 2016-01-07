@@ -119,9 +119,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER="less -M -x4"
-export VISUAL=vim
+export VISUAL=nvim
 export PATH=${HOME}/.bin:$PATH
 # Gems
 export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
