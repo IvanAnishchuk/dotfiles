@@ -126,14 +126,14 @@ export PATH=${HOME}/.bin:$PATH
 # Gems
 export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
 
-export LANG="en_CA.UTF-8"
-export LANGUAGE="en_CA.UTF-8"
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
 export LC_CTYPE="en_CA.UTF-8"
 export LC_NUMERIC="en_CA.UTF-8"
 export LC_TIME="en_DK.UTF-8"
 export LC_COLLATE="en_CA.UTF-8"
 export LC_MONETARY="en_CA.UTF-8"
-export LC_MESSAGES="en_CA.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
 export LC_PAPER="en_GB.UTF-8"
 export LC_NAME="en_CA.UTF-8"
 export LC_ADDRESS="en_CA.UTF-8"
