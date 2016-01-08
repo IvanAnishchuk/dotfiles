@@ -1,3 +1,7 @@
+# Vim
+# TODO: maybe I'll add a whole new config for it some day
+alias vread="vim -c 'set nonumber'"
+
 # Unix
 alias tlf="tail -f"
 alias ln='ln -v'
@@ -19,21 +23,7 @@ alias e="$EDITOR"
 alias v="$VISUAL"
 
 # git
-alias gci="git pull --rebase && rake && git push"
-
-# Bundler
-alias b="bundle"
-
-# Tests and Specs
-alias t="ruby -I test"
-alias cuc="bundle exec cucumber"
-
-# Rails
-alias migrate="rake db:migrate db:rollback && rake db:migrate db:test:prepare"
-alias m="migrate"
-alias rk="rake"
-alias s="rspec"
-alias z="zeus"
+#alias gci="git pull --rebase && rake && git push"
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
@@ -43,6 +33,7 @@ alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias whois="whois -H"
 
 # mplayer (downmixing 5.1 sound stream)
+# TODO: does mpv support this or need this?
 alias mplayer6='mplayer -af pan=2:1:.39:.6:.6:.39:.17:-.17:-.17:.17:.32:.32:.33:.33 -channels 2'
 
 # servers don't usually support my locale
