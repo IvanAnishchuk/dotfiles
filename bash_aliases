@@ -28,6 +28,11 @@ alias v="$VISUAL"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
+# node stuff
+alias npm-exec='PATH=$(npm bin):$PATH'
+# Shorter but less explanatory version
+alias n='PATH=$(npm bin):$PATH'
+
 # Net stuff
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias whois="whois -H"
