@@ -37,13 +37,6 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " Cucumber navigation commands
-  autocmd User Rails Rnavcommand step features/step_definitions -glob=**/* -suffix=_steps.rb
-  autocmd User Rails Rnavcommand config config -glob=**/* -suffix=.rb -default=routes
-
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-
   " Enable spellchecking for Markdown
   autocmd FileType mkd setlocal spell
 
@@ -59,6 +52,10 @@ set expandtab
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['manage.py']
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
@@ -104,15 +101,17 @@ set statusline+=%*
 autocmd! BufWritePost * Neomake
 nnoremap <leader>j :lopen<CR>
 nnoremap <leader>k :lclose<CR>
-" TODO: any equivalent for newomake
 
-let g:syntastic_check_on_open=1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
+
+" Autocompletion
+let g:deoplete#enable_at_startup = 1
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#show_call_signatures = 0
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
