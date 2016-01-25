@@ -14,16 +14,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias lh='ls -Alh'
 
-# FIXME: -g? zsh stuff?
-#alias -g G='| grep'
-#alias -g M='| less'
-#alias -g L='| wc -l'
-#alias -g ONE="| awk '{ print \$1}'"
 alias e="$EDITOR"
 alias v="$VISUAL"
-
-# git
-#alias gci="git pull --rebase && rake && git push"
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
