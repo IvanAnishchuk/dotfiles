@@ -105,6 +105,12 @@ nnoremap <leader>k :lclose<CR>
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
+" Interpreters
+" Needed for deoplete (might cause some trouble elsewhere)
+let g:python3_host_prog = '/usr/bin/python3'
+" We just don't need it yet
+" let g:python_host_prog = '/usr/bin/python'
+
 " Autocompletion
 let g:deoplete#enable_at_startup = 1
 autocmd FileType python setlocal omnifunc=jedi#completions
