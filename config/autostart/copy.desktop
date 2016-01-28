@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+StartupNotify=false
+Hidden=false
+GenericName=File Synchronizer
+Categories=Network;FileTransfer;
+Exec=/opt/copy-client/CopyAgent
+Name=CopyAgent
+Comment=Sync files across computers, mobile devices, and to the web
+X-GNOME-Autostart-enabled=true
+OnlyShowIn=XFCE;
