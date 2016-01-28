@@ -129,6 +129,11 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Terminal title
+augroup termtitle
+  autocmd VimEnter,WinEnter,BufWinEnter * exec 'set title'
+augroup END
+
 " Local config
 if filereadable($HOME . "/.config/nvim/local.vim")
   source ~/.config/nvim/local.vim
