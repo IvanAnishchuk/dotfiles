@@ -21,15 +21,15 @@
   unpull = reset --hard HEAD@{1}
 [core]
   editor = vim
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.config/git/ignore
   autocrlf = input
 [merge]
   ff = only
   tool = meld
 [include]
-  path = .gitconfig.local
+  path = ~/.config/git/config.local
 [commit]
-  template = ~/.gitmessage
+  template = ~/.config/git/message
 [fetch]
   prune = true
 [rebase]
