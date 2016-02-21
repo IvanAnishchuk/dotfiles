@@ -1,0 +1,21 @@
+[Desktop Entry]
+Version=1.0
+Name=Rotate Screen
+GenericName=Rotate Screen
+Comment=Rotate Screen
+Exec=rotate.sh cycle
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=view-refresh
+Categories=
+StartupNotify=false
+Actions=Back;Normal
+
+[Desktop Action Back]
+Name=Rotate Back
+Exec=~/.bin/rotate_screen.sh countercycle
+
+[Desktop Action Normal]
+Name=Rotate Normal
+Exec=rotate.sh normal

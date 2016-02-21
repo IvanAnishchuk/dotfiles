@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Toggle Input
+GenericName=Toggle Input
+Comment=Toggle Input
+Exec=~/.bin/toggle_input.sh
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=action-unavailable-symbolic
+Categories=
+StartupNotify=false
+Actions=Back;Normal
+
