@@ -16,7 +16,6 @@ Plug 'godlygeek/tabular'
 Plug 'junegunn/vader.vim'
 "Plug 'tuxcanfly/ViMango'
 Plug 'Chiel92/vim-autoformat'
-Plug 'IvanAnishchuk/pychimp-vim'
 Plug 'IvanAnishchuk/spell-vim'
 Plug 'plasticboy/vim-markdown'
 " New stuff
@@ -25,6 +24,10 @@ Plug 'benekastah/neomake'
 Plug 'Shougo/deoplete.nvim'
 Plug 'davidhalter/jedi-vim'
 Plug 'rking/ag.vim'
+" Colors
+Plug 'altercation/vim-colors-solarized'
+Plug 'freeo/vim-kalisi'
+Plug 'IvanAnishchuk/pychimp-vim'
 " Don't need this anymore/doesn't work with neovim
 "Plug 'IvanAnishchuk/fb2-vim'
 "Plug 'z2v/vim-yo-spell'

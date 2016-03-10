@@ -14,7 +14,6 @@ set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
-set t_Co=256
 syntax on
 
 if filereadable(expand("~/.config/nvim/plugins.vim"))
@@ -69,9 +68,15 @@ if executable('ag')
 endif
 
 " Color scheme
-colorscheme pychimp
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
+set t_Co=256
+set background=dark
+"colorscheme pychimp
+colorscheme kalisi
+"highlight NonText guibg=#060606
+"highlight Folded  guibg=#0A0A0A guifg=#9090D0
+highlight clear SpellBad
+highlight SpellBad guibg=#603030
+let g:airline_theme='kalisi'
 
 " Numbers
 set number
