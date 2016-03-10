@@ -1,0 +1,2 @@
+msg-level=ffmpeg/audio=fatal
+hwdec=vaapi
