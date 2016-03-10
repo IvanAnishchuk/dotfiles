@@ -150,3 +150,10 @@ export PIP_DOWNLOAD_CACHE="${HOME}/.pip_download_cache"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+source $HOME/.local/bin/virtualenvwrapper.sh
+
+### Hack until it's supported in xfce4-terminal
+if [ x"$TERM" == x"xterm-256color" ]; then
+    export NVIM_TUI_ENABLE_TRUE_COLOR=1
+fi
