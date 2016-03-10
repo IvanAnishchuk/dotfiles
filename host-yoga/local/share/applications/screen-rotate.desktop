@@ -3,7 +3,7 @@ Version=1.0
 Name=Rotate Screen
 GenericName=Rotate Screen
 Comment=Rotate Screen
-Exec=rotate.sh cycle
+Exec=~/.bin/rotate_screen.sh cycle
 Terminal=false
 X-MultipleArgs=false
 Type=Application
@@ -18,4 +18,4 @@ Exec=~/.bin/rotate_screen.sh countercycle
 
 [Desktop Action Normal]
 Name=Rotate Normal
-Exec=rotate.sh normal
+Exec=~/.bin/rotate_screen.sh normal
