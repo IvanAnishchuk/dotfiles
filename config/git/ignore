@@ -1,4 +1,4 @@
-*.DS_Store
+.DS_Store
 *.sw[nop]
 .bundle
 .env
@@ -6,8 +6,12 @@ db/*.sqlite3
 log/*.log
 rerun.txt
 tags
+!tags/
 tmp/**/*
 env
 venv
 *~
 *.bak
+!tmp/cache/.keep
+*.py[co]
+__pycache__

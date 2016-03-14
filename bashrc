@@ -99,12 +99,12 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
 fi
 
-if [ -f ~/.bash_local ]; then
-    . ~/.bash_local
+if [ -f ~/.bashrc.local ]; then
+    . ~/.bashrc.local
 fi
 
 # FIXME: check how's it work on gentoo and such
