@@ -102,7 +102,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
-
+# host-specific stuff
+if [ -f ~/.bashrc.host ]; then
+    . ~/.bashrc.host
+fi
+# local or private stuff
 if [ -f ~/.bashrc.local ]; then
     . ~/.bashrc.local
 fi

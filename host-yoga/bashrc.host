@@ -1,0 +1,1 @@
+alias chromium-browser='chromium-browser --force-device-scale-factor=2'
