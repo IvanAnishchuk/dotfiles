@@ -21,9 +21,9 @@ Plug 'IvanAnishchuk/spell-vim'
 Plug 'plasticboy/vim-markdown'
 " New stuff
 Plug 'janko-m/vim-test'
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim'
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 Plug 'rking/ag.vim'
 " Colors
 Plug 'altercation/vim-colors-solarized'
