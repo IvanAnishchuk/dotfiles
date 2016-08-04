@@ -27,6 +27,7 @@
   tool = meld
 [commit]
   template = ~/.config/git/message
+  gpgsign = true
 [fetch]
   prune = true
 [rebase]
