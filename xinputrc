@@ -1,3 +1,4 @@
 run_im xim
 # My favorite layout settings at the moment
-setxkbmap -layout us,ru -option grp:shifts_toggle,grp_led:caps,compose:rwin,compose:lwin,caps:swapescape
+setxkbmap -layout us -option compose:ralt,caps:swapescape
+# TODO: xmodmap stuff

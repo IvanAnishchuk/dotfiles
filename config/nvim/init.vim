@@ -11,10 +11,12 @@ set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 syntax on
+syntax enable
 
 if filereadable(expand("~/.config/nvim/plugins.vim"))
   source ~/.config/nvim/plugins.vim
 endif
+
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -42,6 +44,7 @@ augroup END
 " shell for syntax highlighting purposes.
 let g:is_posix = 1
 
+" I'm not sure why I set 2 by default. It's good for html but for no code
 " Softtabs, 2 spaces
 set tabstop=2
 set shiftwidth=2
@@ -70,20 +73,40 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" Color scheme
+" Color scheme tweaks, vary greatly on what theme I prefer this year
 set t_Co=256
 set background=dark
 "colorscheme pychimp
 colorscheme kalisi
+"colorscheme solarized
+"" Somewhat darker
+"highlight clear Normal
+"highlight Normal guifg=#d0d0d0 guibg=#202022  gui=none
+"highlight clear NonText
+"highlight NonText guibg=#22222f ctermbg=236
 "highlight NonText guibg=#060606
 "highlight Folded  guibg=#0A0A0A guifg=#9090D0
-highlight clear SpellBad
-highlight SpellBad guibg=#603030
+" Make it red, no underline: tyypo
+"highlight clear SpellBad
+"highlight SpellBad guibg=#603030 ctermbg=88
+" Somewhat greenish dark blue for this: vim
+"highlight clear SpellRare
+"highlight SpellRare guibg=#1a2c2f ctermbg=236
+" Dark yellow-ish here: colour/color
+"highlight clear SpellLocal
+"highlight SpellLocal guibg=#553f10
+highlight clear ColorColumn
+"highlight ColorColumn guibg=#2c2d27 ctermbg=235
+highlight ColorColumn guibg=#3b3b3d ctermbg=235
 let g:airline_theme='kalisi'
+"syntax enable
+"highlight clear ColorColumn
+"highlight ColorColumn guibg=#2c2d27 ctermbg=235
 
 " Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
+"set textwidth=80
+" make it wide gray area (while 80 is still recommended, something ninety-ish is| acceptable, |but nothing beyond that!)
+let &colorcolumn=join(range(80,98), ",")
 
 " Numbers
 set number
@@ -181,5 +204,5 @@ if filereadable($HOME . "/.config/nvim/local.vim")
 endif
 
 "Enable spellchecking
-set spelllang=en_us,ru_yo
+set spelllang=en_us
 set spell

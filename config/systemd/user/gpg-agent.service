@@ -3,9 +3,10 @@ Description=GnuPG private key agent
 IgnoreOnIsolate=true
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/gpg-agent --daemon
-Restart=on-abort
+Type=simple
+ExecStartPre=/usr/bin/gpgconf --kill gpg-agent
+ExecStart=/usr/bin/gpg-agent -v --server --no-detach --log-file /home/hatha/gpga.log
+Restart=on-sucess
 
 [Install]
 WantedBy=default.target

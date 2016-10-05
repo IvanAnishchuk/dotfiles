@@ -26,8 +26,12 @@ alias npm-exec='PATH=$(npm bin):$PATH'
 alias n='PATH=$(npm bin):$PATH'
 
 # Net stuff
+alias ipfy="curl -s https://api.ipify.org"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias whois="whois -H"
+alias whereis="bash -c 'whois -H $@ | grep --color=never ^country:\\\|address:' --"
+alias whereisme='whois -H `ipfy` | grep --color=never ^country:\\\|address:'
+alias whoisme="whois -H `ipfy`"
 
 # mplayer (downmixing 5.1 sound stream)
 # TODO: does mpv support this or need this?

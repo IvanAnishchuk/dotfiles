@@ -16,7 +16,8 @@
   co = checkout
   pf = push --force-with-lease
   st = status
-  up = !git fetch origin && git rebase origin/master
+  up = pull --rebase
+  pur = pull --rebase
   unpull = reset --hard HEAD@{1}
 [core]
   editor = vim

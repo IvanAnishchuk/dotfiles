@@ -133,7 +133,7 @@ fi
 export EDITOR=nvim
 export PAGER="less -M -x4"
 export VISUAL=nvim
-export PATH=${HOME}/.bin:$PATH
+export PATH=${HOME}/.bin:${HOME}/.local/bin:$PATH
 # Gems
 export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
 
@@ -162,6 +162,7 @@ export PIP_DOWNLOAD_CACHE="${HOME}/.pip_download_cache"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+VIRTUALENVWRAPPER_PYTHON=`which python3`
 source $HOME/.local/bin/virtualenvwrapper.sh
 
 ### Hack until it's supported in xfce4-terminal
