@@ -109,8 +109,13 @@ let g:airline_theme='kalisi'
 let &colorcolumn=join(range(80,98), ",")
 
 " Numbers
-set number
+set number relativenumber
 set numberwidth=5
+
+autocmd InsertEnter * setl norelativenumber
+autocmd InsertLeave * setl relativenumber
+autocmd WinEnter * setl relativenumber
+autocmd WinLeave * setl norelativenumber
 
 " Trying new mode switching
 inoremap jk <Esc>
