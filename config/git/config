@@ -19,6 +19,15 @@
   up = pull --rebase
   pur = pull --rebase
   unpull = reset --hard HEAD@{1}
+  ; usage: remote defaultbranch authoremail (regexp) branches to keep (regexp)
+  prunebranchesadvanced = "!f() { git for-each-ref --sort=-committerdate --merged "${1}/${2}" --format='%(authoremail)%(refname:short)' refs/heads | grep '^<'"${3}"'>' | grep -Po '<[^>]*>\\K.*' | grep -v '^'"${4}"'$' | while read branch; do echo git branch -d "${branch}"; git push --delete "${1}" "${branch}"; echo git branch -dr "${branch}"; done ; }; f"
+  ; defaults set here, overrride in local or repo config if needed
+  prunebranchesby = "!f() { git prunebranchesadvanced origin develop "${1}" 'develop\\|master' ; }; f"
+  ; prune regardless of author (likewise, override)
+  prunebranchesall = "!f() { git prunebranchesadvanced origin develop '.*' 'develop\\|master' ; }; f"
+  ; prune only mine (override if use more than one identity)
+  prunebranches = !git prunebranchesby $(git config user.email)
+
 [core]
   editor = vim
   excludesfile = ~/.config/git/ignore
