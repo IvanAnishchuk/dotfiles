@@ -1,6 +1,5 @@
 # Vim
-# TODO: maybe I'll add a whole new config for it some day
-alias vread="vim -c 'set nonumber'"
+alias vim='vim -p'
 
 # Unix
 alias tlf="tail -f"
