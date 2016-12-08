@@ -1,4 +1,2 @@
 run_im xim
-# My favorite layout settings at the moment
-setxkbmap -layout us -option compose:ralt,caps:swapescape
-# TODO: xmodmap stuff
+bash ~/.bin/keyboard_setup.sh
