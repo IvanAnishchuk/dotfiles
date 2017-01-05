@@ -44,3 +44,5 @@
   autosquash = true
 [include]
   path = ~/.config/git/config.local
+[gpg]
+  program = gpg2
