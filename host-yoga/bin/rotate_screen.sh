@@ -4,7 +4,7 @@ rangex=( 0 3408 )
 rangey=( 0 1872 )
 torotate=( "ELAN21EF:00 04F3:21EF" )
 
-xrandrout="$(xrandr |grep eDP1 | sed -e 's/^eDP1 [a-z]* [0-9x+]* \(right\|left\|inverted\|\) \?(.*$/\1/')"
+xrandrout="$(xrandr |grep DP-1 | sed -e 's/^DP-1 [a-z]* [0-9x+]* \(right\|left\|inverted\|\) \?(.*$/\1/')"
 if [[ x"$xrandrout" == x"" ]]; then
   xrandrout=normal
 fi
@@ -46,7 +46,7 @@ case $target in
 esac
 
 #xrandr -o $(( rotate * 3 ))
-xrandr --output eDP1 --rotate $pos
+xrandr --output DP-1 --rotate $pos
 for input in "${torotate[@]}"; do
  xinput set-prop "$input" "Evdev Axes Swap" $swap
  xinput set-prop "$input" "Evdev Axis Inversion" $invertx, $inverty

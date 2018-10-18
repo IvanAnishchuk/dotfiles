@@ -17,6 +17,10 @@ if filereadable(expand("~/.config/nvim/plugins.vim"))
   source ~/.config/nvim/plugins.vim
 endif
 
+if filereadable(expand("~/.config/nvim/local.vim"))
+  source ~/.config/nvim/local.vim
+endif
+
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -167,8 +171,8 @@ let g:html_indent_tags = 'li\|p'
 
 " Interpreters
 " Needed for deoplete (might cause some trouble elsewhere)
-let g:python3_host_prog = '/usr/bin/python3'
-let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = expand("~/.virtualenvs/py3-bDrSxo4D/bin/python3")
+let g:python_host_prog = expand("~/.virtualenvs/py2-vSbVubQ3/bin/python")
 
 " Autocompletion
 let g:deoplete#enable_at_startup = 1

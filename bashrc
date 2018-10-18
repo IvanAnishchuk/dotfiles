@@ -126,9 +126,7 @@ fi
 #export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # Set SSH to use gpg-agent
 unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
-fi
+export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
 
 export EDITOR=nvim
 export PAGER="less -M -x4"
@@ -162,8 +160,9 @@ export PIP_DOWNLOAD_CACHE="${HOME}/.pip_download_cache"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-VIRTUALENVWRAPPER_PYTHON=`which python3`
-source $HOME/.local/bin/virtualenvwrapper.sh
+# Trying pipenv instead
+#VIRTUALENVWRAPPER_PYTHON=$HOME/.local/bin/python3.7m
+#source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 ### Hack until it's supported in xfce4-terminal
 if [ x"$TERM" == x"xterm-256color" ]; then

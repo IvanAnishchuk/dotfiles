@@ -1,2 +1,7 @@
 run_im xim
-bash ~/.bin/keyboard_setup.sh
+GTK_IM_MODULE=xim
+QT_IM_MODULE=xim
+QT4_IM_MODULE=xim
+CLUTTER_IM_MODULE=xim
+XMODIFIERS=@im=xim
+#bash ~/.bin/keyboard_setup.sh

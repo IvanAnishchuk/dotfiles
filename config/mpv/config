@@ -1,0 +1,5 @@
+msg-level=ffmpeg/audio=fatal
+hwdec=vaapi
+sub-paths=sub:subs:subtitles:Sub:Subs:Subtitles
+alang=eng
+slang=eng

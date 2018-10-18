@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+neovim = "*"
+pygount = "*"
+pipenv = "==2018.10.9"
+"s3cmd" = "*"
+awscli = "*"
+virtualenvwrapper = "*"
+cookiecutter = "*"
+pip-tools = "*"
+pypi = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
