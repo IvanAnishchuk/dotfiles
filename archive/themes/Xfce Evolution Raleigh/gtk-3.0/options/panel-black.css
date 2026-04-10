@@ -1,0 +1,39 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+/* .XfceHeading {
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  background-image: none;
+  background-color: shade(#cccccc, 1.2);
+  color: #222123;
+  text-shadow: 0px 1px rgba(0, 0, 0, 0.1); }*/
+
+.xfce4-panel {
+  color: #bbbbbb;
+  background-color: #000000; }
+
+.xfce4-panel.background button {
+  background-image: none;
+  background-color: transparent;
+  border-radius: 3px;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0 1px;
+  color: #bbbbbb; }
+  .xfce4-panel.background button:hover {
+    border: 1px solid @selected_bg_color;
+    border-top: 1px solid mix(#f8f8f8, @selected_bg_color, 0.6);
+    background-image: image(mix(#ffffff, @selected_bg_color, 0.8)); }
+  .xfce4-panel.background button:checked, .xfce4-panel.background button:active {
+    border: 1px solid mix(#444444, @selected_bg_color, 0.5);
+    border-top: 1px solid mix(#ffffff, @selected_bg_color, 0.7);
+    background-image: image(mix(#777777, @selected_bg_color, 0.8)); }
+
+.xfce4-panel menu {
+  -gtk-icon-effect: none;
+  text-shadow: none; }

@@ -1,0 +1,43 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~ This file last changed in version 4.21.0 ~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ABOUT
+=====
+Xfce Evolution is a Gtk2 & Gtk3 theme aimed at providing increased consistency across the most commonly used GUI toolkits on the XFCE desktop (Gtk2/3, Qt4/5, wxWidgets2/3, Open/LibreOffice); additionally, Xfce Evolution tries to be "compatible" with the default Gtk3 theme 'Adwaita' in the sense that an application GUI deskgned to look good on Adwaita should also look good on Xfce Evolution.
+
+Xfce Evolution is based on, and/or derived from:
+  Greybird theme (xfwm4)
+  Adwaita theme (gtk3, gtk3-csd)
+  Ambiance theme (gtk2, wxWidgets2/3, qt4/5)
+  Gtk2 Murrine Engine (gtk2, wxWidgets2/3, qt4/5)
+  Qt5 Style Plugins (qt5.7+)
+
+
+INSTALLATION
+============
+Follow the instructions in file 'Xfce Evolution/TOOLS/SETUP/INSTALL' inside this archive, chapter 'INSTALLATION'
+
+IMPORTANT: THE INSTALLATION PROCEDURE MAY CHANGE FOR EACH NEW RELEASE, whereby requirements and/or install steps may be added/changed/removed; please read carefully the 'HISTORY' file each time you install/update this theme.
+
+
+HACKING
+=======
+The 'Xfce Evolution' theme provides several end-user tweaking options, see 'Xfce Evolution/TOOLS/CONFIG/HACKING' file
+
+
+HOMEPAGE
+========
+The 'Xfce Evolution' theme is maintained at http://www.itgroup.ro/xfce-evolution and/or http://xfce-evolution.sourceforge.net
+
+
+LICENSE
+=======
+The 'Xfce Evolution' package is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2).
+A verbatim copy of the GPL-v2 license is included in this archive.
+
+
+COPYRIGHT
+=========
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro

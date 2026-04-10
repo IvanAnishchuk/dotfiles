@@ -1,0 +1,48 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+@import "tab-flat.css";
+
+notebook > header {
+  padding: 0;
+  border-color: mix(#b6b6b3, @shift_bg_color, 00.10);
+  border-width: 1px;
+  background-color: mix(#d8d8d8, @shift_bg_color, 00.10); }
+  notebook > header.top {
+    border-bottom-style: solid; }
+    notebook > header.top > tabs {
+      margin-bottom: -2px; }
+  notebook > header.bottom {
+    border-top-style: solid; }
+    notebook > header.bottom > tabs {
+      margin-top: -2px; }
+  notebook > header.left {
+    border-right-style: solid; }
+    notebook > header.left > tabs {
+      margin-right: -2px; }
+  notebook > header.right {
+    border-left-style: solid; }
+    notebook > header.right > tabs {
+      margin-left: -2px; }
+notebook > header > tabs > tab {}
+  notebook > header.top > tabs > tab, notebook > header.top > tabs > tab.reorderable-page,
+  notebook > header.bottom > tabs > tab, notebook > header.bottom > tabs > tab.reorderable-page {
+    padding-top: 1px;
+    padding-bottom: 1px; }
+  notebook > header > tabs > tab:not(.reorderable-page):checked {
+    background-image: none; }
+  notebook > header.top > tabs > tab.reorderable-page, notebook > header.bottom > tabs > tab.reorderable-page {
+    border: 1px none transparent;
+    border-style: none solid; }
+  notebook > header.left > tabs > tab.reorderable-page, notebook > header.right > tabs > tab.reorderable-page {
+    border: 1px none transparent;
+    border-style: solid none; }
+    notebook > header.top > tabs > tab.reorderable-page:checked, notebook > header.bottom > tabs > tab.reorderable-page:checked, notebook > header.left > tabs > tab.reorderable-page:checked, notebook > header.right > tabs > tab.reorderable-page:checked,
+    notebook > header.top > tabs > tab.reorderable-page:hover, notebook > header.bottom > tabs > tab.reorderable-page:hover, notebook > header.left > tabs > tab.reorderable-page:hover, notebook > header.right > tabs > tab.reorderable-page:hover {
+/*    background-image: linear-gradient(to top, mix(#ffffff, @shift_bg_color, 00.10), mix(#e8e8e8, @shift_bg_color, 00.10) 50%, mix(@bg_color, @shift_bg_color, 00.10));
+; */
+      background-image: image(mix(@bg_color, @shift_bg_color, 00.10));
+      border-color: mix(#b6b6b3, @shift_bg_color, 00.10); }

@@ -1,0 +1,47 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+  .inline-toolbar toolbutton > button:active, .inline-toolbar toolbutton > button:checked,
+  button:active, button:checked,
+  button.flat:active, button.flat:checked,
+  button.titlebutton:active, button.titlebutton:checked {
+    color: mix(@fg_color, mix(@shift_bg_color, @fg_color, 0.398), 00.20);
+    outline-color: mix(rgba(46, 52, 54, 0.3), rgba(0, 0, 0, 0.3), 00.20);
+    background-image: linear-gradient(to bottom, mix(@bg_color, @shift_bg_color, 00.20), mix(#d0d0d0, @shift_bg_color, 00.20) 60%, mix(#b8b8b8, @shift_bg_color, 00.20));
+    box-shadow: 0 0 0 2px mix(@bg_color, @shift_bg_color, 00.20), 1px 1px mix(#ffffff, @shift_bg_color, 00.20), inset 1px 1px 3px mix(#c4c4c4, @shift_bg_color, 00.20);
+    border-color: mix(#949494, @shift_bg_color, 00.20);
+    border-bottom-color: shade(mix(#949494, @shift_bg_color, 00.20), 1.02);
+    -gtk-icon-shadow: none; }
+    notebook > header > tabs > arrow:active, notebook > header > tabs > arrow:checked,
+    spinbutton button:active, spinbutton button:checked,
+    .inline-toolbar toolbutton > button:active, .inline-toolbar toolbutton > button:checked,
+    headerbar.titlebar *:active, headerbar.titlebar *:checked,
+    button:not(:checked):active, .linked > button:checked,
+    button.flat:not(:checked):active, .linked > button.flat:checked,
+    button.titlebutton:not(:checked):active, .linked > button.titlebutton:checked {
+      box-shadow: 1px 1px mix(#ffffff, @shift_bg_color, 00.20), inset 1px 1px 3px mix(#c4c4c4, @shift_bg_color, 00.20);}
+
+  filechooser #pathbarbox button {
+    border-style: solid;
+    border-radius: 3px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0 1px; }
+    filechooser #pathbarbox button:checked {
+      font-weight: bold; }
+
+  @define-color default_button_pressed_border_color shade(mix(#949494, @shift_bg_color, 00.20), 0.5);
+  @import "button-pressed-sunken_tab.css";
+
+  button:disabled:active, button:disabled:active label,
+  button:disabled:checked, button:disabled:checked label,
+  button.titlebutton:disabled:active, button.titlebutton:disabled:active label,
+  button.titlebutton:disabled:checked, button.titlebutton:disabled:checked label,
+  .inline-toolbar toolbutton > button:disabled:active, .inline-toolbar toolbutton > button:disabled:active label,
+  .inline-toolbar toolbutton > button:disabled:checked, .inline-toolbar toolbutton > button:disabled:checked label,
+  notebook > header > tabs > arrow:disabled:active, notebook > header > tabs > arrow:disabled:active label,
+  notebook > header > tabs > arrow:disabled:checked, notebook > header > tabs > arrow:disabled:checked label {
+      color: mix(#767978, @shift_bg_color, 00.20); }

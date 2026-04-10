@@ -1,0 +1,25 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+@import "tab-flat.css";
+
+notebook {
+  border: 1px solid #a57766; }
+
+notebook > stack:first-child,
+notebook > header.top + *, notebook > header.bottom + *, notebook > header.left + *, notebook > header.right + * {
+  border: 1px solid #ff0000;
+  margin: 5px; }
+
+notebook > header, notebook > header.top, notebook > header.bottom, notebook > header.left, notebook > header.right {
+  border: 1px solid #0000ff;
+  box-shadow: none; }
+
+notebook > header.top > tabs > tab:checked:disabled, notebook > header.bottom > tabs > tab:checked:disabled, notebook > header.left > tabs > tab:checked:disabled, notebook > header.right > tabs > tab:checked:disabled,
+notebook > header.top > tabs > tab:hover, notebook > header.bottom > tabs > tab:hover, notebook > header.left > tabs > tab:hover, notebook > header.right > tabs > tab:hover,
+notebook > header.top > tabs > tab:checked, notebook > header.bottom > tabs > tab:checked, notebook > header.left > tabs > tab:checked, notebook > header.right > tabs > tab:checked {
+  box-shadow: none; }
+

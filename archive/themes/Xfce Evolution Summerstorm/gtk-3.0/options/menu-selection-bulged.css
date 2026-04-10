@@ -1,0 +1,41 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+@define-color selected_darker_bg_color shade(@selected_bg_color, 0.88);
+
+modelbutton.flat,
+.menuitem.button.flat {
+  padding-left: 5px;
+  padding-right: 5px; }
+
+modelbutton.flat:hover,
+.menuitem.button.flat:hover,
+/*menubar > menuitem:hover,
+.menubar > menuitem:hover,*/
+menu menuitem:hover,
+.menu menuitem:hover,
+.context-menu menuitem:hover {
+  /* light */
+  border-color: shade(@selected_darker_bg_color, 1.0);
+  border-top-color: shade(@selected_darker_bg_color, 1.05);
+  border-bottom-color: shade(@selected_darker_bg_color, 0.8);
+  background: linear-gradient(to bottom, shade(@selected_darker_bg_color, 1.45), shade(@selected_darker_bg_color, 1.1) 50%, shade(@selected_darker_bg_color, 1.0));
+}
+/*menubar > menuitem:hover,
+  .menubar > menuitem:hover {
+    box-shadow: inset 1px 1px shade(@selected_bg_color, 0.9), inset -1px 0 shade(@selected_bg_color, 0.80); }*/
+
+menu,
+.menu,
+.context-menu {
+  padding-top: 1px;
+  padding-bottom: 1px; }
+
+menu menuitem,
+.menu menuitem,
+.context-menu menuitem {
+  margin-left: 1px;
+  margin-right: 1px; }

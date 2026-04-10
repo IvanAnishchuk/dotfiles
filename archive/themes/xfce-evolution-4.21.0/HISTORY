@@ -1,0 +1,151 @@
+4.21.0
+======
+- because of the presence of scripts, starting with this release odd minor versions will represent development releases, while even minor versions will represent stable releases
+- completely changed the install/uninstall procedures, and updated the instructions in the 'INSTALL' file accordingly (see the 'INSTALLATION' and 'UNINSTALL' chapters)
+- fixed a regression introduced in 4.18.1 on button-like gtk2 checkboxes (used e.g. in the Gimp toolbox)
+- gtk3 tweaks and improvements
+
+4.19.0
+======
+- installer overhaul: a plethora of wrong assumptions in the previous installers/uninstallers made them work properly only on ubuntu-based distros (e.g. the shell was wrongly assumed to be 'bash' for all distros, the bash initialization file was wrongly assumed to always be '~/.profile', the system-wide initialization file was wrongly specified in comments as being '/etc/environment', etc); now fixed
+- new install/uninstall option: own-user and all-users
+- edited the 'INSTALL' file to describe the QT_QPA_PLATFORMTHEME setting for qt5+ application (see "INSTALLATION" and "UNINSTALL" sections)
+- new 'Irix' sub-theme
+- some minor tweaks
+
+4.18.0
+======
+- tweaked old, and added new, menu selection options; now available: menu-selection-flat/dented/bulged/bulged-slight/bulged-rounded, see 'HACKING' file
+- set the background color of tabs' content area to 'transparent' for consistency with gtk2
+- improved installers: prompt for y/n answers instead of <enter>/<close-window>
+- renamed some of the tweaking options for a more consistent naming scheme, see 'HACKING' file
+- other minor tweaks
+
+4.17.0
+======
+- new tweaking option: menu-selection-flat/raised/sunken, see 'HACKING' file
+- installer fix: wrong 'install' argument in arch installer was generating (non-fatal) error
+- installer fix: installers can now be launched from any directory on the local FS
+- code cleanup and minor tweaks
+
+4.16.0
+======
+- consistent widget scaling across gtk2/gtk3 applications for font sizes [7-11]@96dpi
+- gtk3 levelbars consistent with the theme (geometry and colors)
+- arch installer
+- other minor tweaks and fixes
+
+4.15.0
+======
+- workaround for gtk3 minimize/maximize/close buttons in chrome/chromium
+- new step in the distribution-specific installers to remove possible system-wide qt5 font fix leftovers from the 4.13.x versions
+- tweaked the distribution-specific installers to make them double-click-friendly
+- new section 'Scrollbars and Sliders' in 'HACKING' file
+- other minor tweaks and fixes
+
+4.14.0
+======
+- created install/uninstall bash scripts for the 4 most common distros for Xfce, see 'README' file
+- overhauled and reorganized all doc/info files to accommodate the new installers
+- reverted to installing the qt5 font fix in the user-lever directory tree (users' suggestion)
+- IMPORTANT: the qt5 font fix installed by 4.13.x must be manually removed (if any), see 'INSTALL' file
+
+4.13.0
+======
+- bug fix: the qt5 font fix was not properly applied on some systems. The 'INSTALL' file now contains the necessary correction to solve this issue, and the font fix is applied system-wise for all distros (see 'fix the qt5 font rendering issue' in each distro's section in the 'INSTALL' file')
+
+4.12.0
+======
+- new tweaking option: 'desktop-icon-background-on/off', see 'HACKING' file
+- renamed 'focus-rectangles-on/off' options to 'keyboard-navigation-on/off' to better reflect their functions (see 'HACKING' file)
+- many minor tweaks and fixes
+
+4.11.0
+======
+- redesign of gtk3 tab buttons to look like gtk2 buttons when 'button-pressed-contrast' and 'tab-button' options are selected together (see 'HACKING' file)
+- new sub-theme: Xfce Evolution Icelake
+- new sub-theme: Xfce Evolution Summerfield
+- overhaul of the 'HACKING' file in order to make it more clear
+
+4.10.0
+======
+- new tweaking options: 'button-pressed-bent/contrast', see 'HACKING' file
+- renamed tweaking options 'panel-themed-mono' and 'default-button-bright' to 'panel-contrast' and 'default-button-contrast' respectively (see 'HACKING' file)
+- tweaked the shades on pressed gtk3 default buttons
+
+4.9.0
+=====
+- this update contains some remaned files and folders, please MAKE SURE YOU DELETE ALL PREVIOUS 'Xfce Evolution XXX' folders you may have in your '.themes' folder(s) before installing this update (this is not necessary if you follow exactly the step-by-step instructions in the 'INSTALL' file)
+- renamed 'tabs-XXX' options to 'tab-XXX' (see 'HACKING' file)
+- the 'focus-rectangle-off' option now also disables the menu accelerators, see 'HACKING' file
+- many gtk2/gtk3 consistency tweaks (e.g. new highlighting formula for gtk2/gtk3 to correct over-highlighting on darker themes, consistent look for gtk2/gtk3 default-button-pressed, etc)
+
+4.8.0
+=====
+- renamed tweaking options 'panel-light' and 'panel-light-mono' to 'panel-themed' and 'panel-themed-mono' respectively (see 'HACKING' file)
+- tweaked highlighting for gtk2 panel buttons
+- consistency tweaks
+
+4.7.0
+=====
+- many gtk2/gtk3 consistency tweaks
+- xfwm button fix
+- code refactoring
+
+4.6.0
+=====
+- new tweaking options: menu-separator-light/dark/relief, see 'HACKING' file
+
+4.5.0
+=====
+- the 'panel-light' option now has two variants: panel-light and panel-light-mono, see 'HACKING' file
+
+4.4.0
+=====
+- new tweaking options for the xfce panels: panel-light/dark/black, see 'HACKING' file
+
+4.3.0
+=====
+- new tweaking options for tabs' geometry: tab-button/flat/notebook, see 'HACKING' file
+
+4.2.0
+=====
+- new tweaking option for the default buttons: 'default-button-explicit', see 'HACKING' file
+
+4.1.0
+=====
+- cross-toolkit uniform appearance of 'default' and focused widgets
+- options can be tweaked by the end-user, see 'HACKING' file
+
+4.0.0
+=====
+- the initial goals for this theme have been achieved
+- Xfce Evolution 4.0.0 becomes the new baseline version
+
+3.1.0
+=====
+- made it easier to tweak the windows' and widgets' color tone by the end-user, see 'HACKING' file
+
+3.0.0
+=====
+- made it possible to change the theme's background colors (however, only light themes can be created)
+- Xfce Evolution 3.0.0 becomes the new baseline version
+
+2.1.0
+=====
+- increased visual cohesiveness for gtk3-csd widgets and windows
+
+2.0.0
+=====
+- fixed the gtk3 css errors
+- achieved substantial cross-toolkit visual cohesiveness
+- Xfce Evolution 2.0.0 becomes the new baseline version
+
+1.0.0
+=====
+- initial release
+- Xfce Evolution 1.0.0 becomes the baseline version
+
+0.1.x
+=====
+- early development

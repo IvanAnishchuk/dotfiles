@@ -1,6 +1,13 @@
 #!/bin/bash
+#
+# DEPRECATED: replaced by `tools-sync` (uv + npm) in phase B of the
+# dotfiles modernization. Left as a reference for which tools the
+# old pipenv-based installer was managing — `repo/py3/Pipfile` is
+# the canonical list. This script is no longer wired up; the `py2`
+# and `docker` envs were removed during phase A2 cleanup.
+#
 set -e
-for env in py2 py3 docker; do
+for env in py3; do
   cd $env
   pipenv install
   # skip these: 'pip2* pip3* pip python* wheel easy_install*'

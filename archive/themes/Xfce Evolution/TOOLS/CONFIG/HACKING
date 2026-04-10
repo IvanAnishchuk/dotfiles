@@ -1,0 +1,98 @@
+
+IMPORTANT
+=========
+Each time you install/update the Xfce Evolution theme, ANY HACKS THAT YOU HAVE MADE TO YOUR PREVIOUS INSTALLATION WILL BE LOST as part of the install procedure (see 'INSTALL' file). A straight-forward way to work around this problem, although a bit tedious, is to create a 'my-xfce-evolution-hacks' file in which you should write down any teaks you have made to your installation (e.g. for an existing "sub-theme", or for a new "sub-theme" that you have created), such that you can easily re-apply them to each new update/installation.
+- Caution: you should create your 'my-xfce-evolution-hacks' file in a _persistent standard location_ (e.g. in your theme folder '~/.themes'); in particular, do _not_ create this file inside any of Xfce Evolution theme's folders, as these folders get deleted each time you update/install a new version.
+
+HACKING
+=======
+Xfce Evolution is a _LIGHT_ theme (dark foreground/light background), and it _cannot_ be easily hacked into a dark theme in the current version. However, certain end-user customization tweaks are possible for each of the existing "sub-themes", and new self-contained Xfce Evolution-based themes can be created.
+
+Scrollbars and Sliders
+----------------------
+The default behavior of scrollbars in Gtk3 has changed from Gtk2 in the sense that, when clicking above/below the scrollbar knob, the knob moves to the point-of-click (by default) instead of moving one page up/down (the latter is the Gtk2 behavior). 
+
+The Gtk3 default scrollbar behavior can be changed to Gtk2 behavior by adding a per-theme custom setting 'gtk-primary-button-warps-slider=false' in the '<themeName>/gtk-3.0/settings.ini' file; however, the problem with setting 'gtk-primary-button-warps-slider=false' is that not only scrollbars are affected, but rather _all_ widgets that are using GtkRange, including e.g. GtkScale which is commonly used as a "seek bar" in media players etc, such that Gtk3 seekbars will move in increments and not to the point-of-click.
+
+The 'Xfce Evolution' theme chooses to preserve scrollbar consistency with Gtk2, which implies that seekbar knobs will also move in increments and _not_ to the point-of-click. You can still use Gtk3 seekbars conveniently by placing the mouse pointer anywhere over the seekbar slider and then use your mouse wheel (or trackpad, etc) to rapidly change the seek position to a desired point.
+
+Hacking: you can make the seekbars behave in the default Gtk3 mode (i.e. move the seekbar knob to the point-of-click) by setting 'gtk-primary-button-warps-slider=true' in the 'Xfce Evolution/gtk-3.0/settings.ini' file, but this will also change the scrollbars' behavior to point-of-click (note that this setting in 'Xfce Evolution/gtk-3.0/settings.ini' will change the scrollbars/seekbars behavior for all Xfce Evolution sub-themes).
+
+Appearance settings
+-------------------
+Various appearance options for widgets can be easily changed for each Xfce Evolution "sub-theme" (e.g. Xfce Evolution, Xfce Evolution Bronze, etc) by editing the file-names which have the form 'key-name-XXX.css' in the 'gtk-2.0/tweaks.css' _AND_ 'gtk-3.0/tweaks.css' files of each sub-theme:
+- for keyboard navigation options, set the file name 'keyboard-navigation-XXX.css' to:
+  - 'keyboard-navigation-off.css': disable focus rectangles and menu accelerators
+  - 'keyboard-navigation-on.css': enable focus rectangles and menu accelerators
+    - note: applications tend to respond inconsistently to these settings
+- for button-pressed options, set the file name 'button-pressed-XXX.css' to:
+  - button-pressed-sunken: pressed buttons are sunken
+  - button-pressed-dented: pressed buttons are bent inwards (gtk3 only)
+- for default button options, set the file name 'default-button-XXX.css' to:
+  - 'default-button-off.css': do not highlight the default buttons
+  - 'default-button-contrast.css': use contrast for highting the default buttons
+  - 'default-button-themed.css': colorize the default buttons based on the theme colors
+  - 'default-button-explicit.css': colorize the default buttons with 'default_action_color' value (see 'Accent colors settings' paragraph below)
+- for menu selection options, set the file names 'menu-selection-XXX.css' to:
+  - 'menu-selection-flat.css': flat menu selection
+  - 'menu-selection-dented.css': menu selection is bent inwards
+  - 'menu-selection-bulged.css': menu selection is bent outwards
+  - 'menu-selection-bulged-slight.css': menu selection is slightly bent outwards
+  - 'menu-selection-bulged-rounded.css': bulged menu selection with rounded border
+- for menu separator options, set the file names 'menu-separator-XXX.css' to:
+  - 'menu-separator-light.css': flat light-colored menu separators
+  - 'menu-separator-dark.css': flat darker-colored menu separators
+  - 'menu-separator-dented.css': dented menu separators (note: the relief effect is not/barely/unpleasently visible on very light menu backgrounds)
+- for tab geometry options, set the file name 'tab-XXX.css' to:
+  - 'tab-button.css': gtk3 button-like tabs, gtk2 bent outwards
+  - 'tab-flat.css': flat tabs
+  - 'tab-notebook.css': gtk2 bent inwards, gtk3 like adwaita
+- for xfce panel colorization options, set the file name 'panel-XXX.css' to:
+  - 'panel-mono.css': monochrome panel with themes background color
+  - 'panel-dark.css': dark panel with theme-based colorization of pressed buttons
+  - 'panel-black.css': flat black panel with theme-based colorization of pressed buttons
+  - 'panel-themed.css': fully themed panel
+- for desktop icons' background options, set the file name 'desktop-icon-background-XXX.css' to:
+  - 'desktop-icon-background-off.css': don't highlight the desktop icons' labels
+  - 'desktop-icon-background-on.css': set a translucent background color for desktop icons' labels
+
+Accent colors settings
+----------------------
+The following colors can be easily changed for each Xfce Evolution "sub-theme" (e.g. Xfce Evolution, Xfce Evolution Bronze, etc) by editing the corresponding hex value in the 'gtk-2.0/tweaks.css' _AND_ 'gtk-3.0/tweaks.css' files of each sub-theme:
+- 'selected_fg_color_focus': the selected foreground (text) color for focused selected items
+- 'selected_fg_color_nofocus': the selected foreground (text) color for selected items which are NOT focused
+- 'selected_bg_color': the selected items' background color
+- 'menu_bg_color': the background color of menus and popups
+- 'canvas_bg_color': the background color of (most) text and drawing areas
+- 'default_action_color': the color of the default action buttons when mode is set to 'default-button-explicit' (see 'Appearance setting' paragraph above)
+- 'shift_bg_color': tweak parameter for the window background color (see 'Base color settings' paragraph below)
+
+Base color settings (ONLY FOR THE DARING!)
+------------------------------------------
+Because of the history of this theme (adaptation from adwaita:gtk3 and ambiance:gtk2, which i consider both to be pretty complete themes), the method for changing the  background color of windows and widgets (a.k.a. the theme's "base color") is RATHER COMPLICATED, and it only allows for relatively small variations for the windows' and widgets' background colors. Specifically, the background color of windows and widgets, including the widget borders, highlight tones, etc, is determined starting from a light-grey "base value" (#e8e7ea), which is then "pulled towards" a COLOR TONE (defined by 'shift_bg_color') with a certain "PULL STRENGTH" (the "pull strength" is a number of the form '00.nn')
+- for example, setting 'shift_bg_color' to #99ddff will designate a fluorescent-blue color tone, and setting the pull stregth to 00.20 will determine a moderate color satuation, thus resulting in a light-blue color
+- note: for each Xfce Evolution "sub-theme", you will find the definition of 'shift_bg_color' in the teheme's 'gtk-2.0/tweaks.css' _AND_ 'gtk-3.0/tweaks.css' files (search for the string 'shift_bg_color' in these files), and the "pull value" appears as instances of the form '00.nn' inside the theme's 'gtk-2.0/widgets.css' _AND_ 'gtk-3.0/widgets.css' files (search for the string '00.' throughout these files)
+
+In order to tweak the background color for a "sub-theme's" windows and widgets you should:
+  a) inside your "sub-theme's" folder, locate the 'gtk-3.0/tweaks.css' _AND_ 'gtk-2.0/tweaks.css' files and change the 'shift_bg_color' value to the desired COLOR TONE toward which the background color will be shifted (e.g. setting 'shift_bg_color' to #880088 will create a purple-ish theme)
+  b) open a terminal and cd inside your "sub-theme's" folder, and then run one of the bash files '00.00'...'00.40' (i.e. use the command ./00.nn after entering your "sub-theme" folder); these scripts replace the "pull strength" in both 'gtk-2.0/widgets.css' and 'gtk-3.0/widgets.css' to the value of the file name, thus setting up the COLOR SATURATION for the new theme ('00.00' determines zero saturation, '00.40' determines the maximum saturation)
+  c) in your theme manager, switch to any other theme and then back to the sub-theme you have modified: this will effectively apply your new background color on the desktop
+
+IMPORTANT guidelines for generating a new background color:
+  - the brightness of 'shift_bg_color', i.e. the _average_ between its RGB components, should be UP TO #80 (e.g. a value of #ff8000 is okay, but #ff8080 is too large), and the "pull strength" should be UP TO 00.20 (i.e. try to avoid using the '00.30' or '00.40' scripts)
+  - as a rule of thumb, try to use LOWER BRIGHTNESS VLUES for 'shift_bg_color', and this will implicitly require lower values for the 00.nn "pull strength" for achieving the same background color (e.g #886600/00.20 generates almost the same background color as #B4A474/00.40, but the first option should be used because it has lower brightness and "pull stregth" values). Using intensity values higher than #80 will result in lower contrasts for text and border lines, and using "pull strength" values higher than 00.20 may create unpleasant shadows under text (depending also on the color tone) and will reduce the contrast for borders and highlights
+
+Creating your own Xfce Evolution-based theme
+============================================
+You can easily create a new _self-contained_ Xfce Evolution-based theme as follows:
+  1) first create a copy of the base theme folder 'Xfce Evolution' to a new folder, and name the new folder considering the following:
+    - if the folder name of your new theme starts with 'Xfce Evolution' (e.g. 'Xfce Evolution MyCustomTheme') then your theme will be automatically removed by the install/uninstall procedures (as described in the 'INSTALL' file)
+    - if the folder name of your new theme does _NOT_ start with 'Xfce Evolution' (e.g. 'Xfce-Evolution-MyCustomTheme') then it will _NOT_ be removed by the install/uninstall procedures (as described in the 'INSTALL' file), and your theme will remain usable as-is alongside the new Xfce Evolution update
+  2) set your theme's accent colors by following the procedure described in the 'Accent colors settings' paragraph above
+  3) set your theme's windows and widgets background color by following the procedure described in the 'Base color settings' paragraph above
+  4) set the customizable appearance options for your theme by following the procedure described in the 'Appearance settings' paragraph above
+
+After you finished the procedure described above (steps 1...4), you can archive the resulting theme folder (e.g. 'Xfce-Evolution-MyCustomTheme'), and the resulting package (e.g. 'Xfce-Evolution-MyCustomTheme.zip') will contain all the necessary files required for the theme to be installable _as a stand-alone component_ on an Xfce machine (including the installation and hacking instructions).
+
+---
+Have fun!

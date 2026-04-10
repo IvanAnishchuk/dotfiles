@@ -1,0 +1,49 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+@import "button-pressed-sunken.css";
+
+  notebook > header > tabs > arrow:active, notebook > header > tabs > arrow:checked,
+  spinbutton button:active, spinbutton button:checked,
+  .inline-toolbar toolbutton > button:active, .inline-toolbar toolbutton > button:checked,
+  headerbar.titlebar *:active, headerbar.titlebar *:checked,
+  button:active, button:checked,
+  button.flat:active, button.flat:checked,
+  button.titlebutton:active, button.titlebutton:checked {
+    outline-color: #777777;
+/*  border-color: mix(@selected_bg_color, #000000, 0.07);
+    border-bottom-color: mix(@selected_bg_color, #000000, 0.15);
+    border-right-color: mix(@selected_bg_color, #000000, 0.11);*/
+    border-color: shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 1.0);
+    border-top-color: shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 1.01);
+    border-bottom-color: shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 0.99);
+    color: shade(mix(@fg_color, mix(@shift_bg_color, @fg_color, 0.398), 00.30), 0.8);
+    text-shadow: 0 1px mix(#e0e0e0, @shift_bg_color, 00.30);
+    background-image: linear-gradient(to bottom, mix(mix(#ffffff, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.65), 0.85), mix(mix(@bg_color, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.55), 0.70) 50%, mix(mix(#a0a0a0, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.45), 0.60));
+    box-shadow: inset 1px 1px 4px mix(mix(#b0b0b0, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.40), 0.60), 1px 1px rgba(255, 255, 255, 0.3);
+    -gtk-icon-shadow: none;
+/*  -gtk-icon-effect: dim;*/
+    -gtk-icon-transform: translate(1px, 1px); } /* doesn't seem to work */
+
+/*button.default:not(:disabled):active,
+  button.default:not(:disabled):checked {
+    border-color: mix(@selected_bg_color, #000000, 0.07);
+    border-bottom-color: mix(@selected_bg_color, #000000, 0.15);
+    border-right-color: mix(@selected_bg_color, #000000, 0.11); }*/
+
+  notebook > header > tabs > tab:checked,
+  notebook > header > tabs > tab:disabled:checked,
+  notebook > header.left > tabs > tab:checked, notebook > header.right > tabs > tab:checked,
+  notebook > header.left > tabs > tab:checked:disabled, notebook > header.right > tabs > tab:checked:disabled {
+    outline-color: #777777;
+    background-image: linear-gradient(to bottom, mix(mix(#ffffff, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.65), 0.85), mix(mix(@bg_color, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.55), 0.70) 50%, mix(mix(#a0a0a0, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.45), 0.60));
+    border-color: shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 1.0);
+    box-shadow: 1px 1px rgba(255, 255, 255, 0.3), 0 2px rgba(255, 255, 255, 0.4), 0 1px shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 0.99), 0 -1px shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 1.01), inset 1px 1px 3px mix(mix(#b0b0b0, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.40), 0.60); }
+    notebook > header.left > tabs > tab:checked, notebook > header.right > tabs > tab:checked,
+    notebook > header.left > tabs > tab:checked:disabled, notebook > header.right > tabs > tab:checked:disabled {
+    border-top-color: shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 1.01);
+    border-bottom-color: shade(mix(shade(@selected_bg_color, 0.8), mix(#a0a0a0, @shift_bg_color, 00.30), 0.6), 0.99);
+    box-shadow: inset 1px 1px 3px mix(mix(#b0b0b0, @shift_bg_color, 0.25), mix(@selected_bg_color, #f0f0f0, 0.40), 0.60); }

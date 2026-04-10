@@ -1,0 +1,44 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+/* .XfceHeading {
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  background-image: none;
+  background-color: shade(#cccccc, 1.2);
+  color: #222123;
+  text-shadow: 0px 1px rgba(0, 0, 0, 0.1); }*/
+
+.xfce4-panel.background button {
+  background-image: none;
+  background-color: transparent;
+  border-radius: 3px;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0 1px;}
+  .xfce4-panel.background button:hover {
+    color: mix(@fg_color, mix(@shift_bg_color, @fg_color, 0.398), 00.10);
+    outline-color: mix(rgba(46, 52, 54, 0.3), rgba(0, 0, 0, 0.3), 00.10);
+    border-color: mix(#b6b6b3, @shift_bg_color, 00.10);
+    border-top-color: mix(#b0b0b0, @shift_bg_color, 00.10);
+    border-bottom-color: mix(#91918c, @shift_bg_color, 00.10);
+    -gtk-icon-shadow: 0 1px mix(rgba(255, 255, 255, 0.76923), rgba(0, 0, 0, 0.76923), 00.10);
+    box-shadow: inset 0 1px mix(#ffffff, @shift_bg_color, 00.10);
+    background-image: linear-gradient(to bottom, mix(#ffffff, mix(@shift_bg_color, #ffffff, 0.399), 00.10), mix(#f0f0f0, mix(@shift_bg_color, #f0f0f0, 0.399), 00.10) 50%, mix(#e0e0e0, mix(@shift_bg_color, #e0e0e0, 0.399), 00.10));
+    -gtk-icon-effect: highlight; }
+  .xfce4-panel.background button:checked, .xfce4-panel.background button:active {
+    color: mix(@fg_color, mix(@shift_bg_color, @fg_color, 0.398), 00.10);
+    outline-color: mix(rgba(46, 52, 54, 0.3), rgba(0, 0, 0, 0.3), 00.10);
+    border-color: mix(#808080, @shift_bg_color, 00.10);
+    border-bottom-color: mix(#707070, @shift_bg_color, 00.10);
+    background-image: linear-gradient(to bottom, mix(#cccccc, @shift_bg_color, 00.10), mix(#aaaaaa, @shift_bg_color, 00.10) 50%, mix(#999999, @shift_bg_color, 00.10));
+    text-shadow: none;
+    -gtk-icon-shadow: none;}
+
+.xfce4-panel menu {
+  -gtk-icon-effect: none;
+  text-shadow: none; }

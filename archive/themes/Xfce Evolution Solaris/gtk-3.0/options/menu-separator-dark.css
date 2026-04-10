@@ -1,0 +1,12 @@
+/**************************************************************************************
+This file is distributed under the GNU General Public License version 2 (a.k.a. GPL-v2)
+(c) 2017 - 2018 Virgil Mager
+(c) 2017 - 2018 Information Technology Group - www.itgroup.ro
+**************************************************************************************/
+
+menu separator, .csd menu separator,
+.menu separator, .csd .menu separator {
+  background: mix(shade(@menu_bg_color, 0.85), #808080, 0.5); /*0.6/0.55*/
+  color:  mix(shade(@menu_bg_color, 0.85), #808080, 0.5);
+  margin: 0px 1px 0px 1px;
+}

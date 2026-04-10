@@ -1,0 +1,37 @@
+# Author of original metacity theme: elementart Art Team
+# License: GPL
+# Date: January 2011
+
+# Author: Simon Steinbeiß <simon.steinbeiss@elfenbeinturm.at>
+# Modified by: Marcelo Aguero <marceloaguero@gmail.com>
+# Modified again by: Simon Steinbeiß <simon.steinbeiss@elfenbeinturm.at>
+# Modified again by: Ramon Kaes <ramon.kaes@gmail.com>
+# Modified again by: Virgil Mager
+
+#active_text_color=active_text_color_2
+#active_text_shadow_color=active_hilight_2
+#inactive_text_color=inactive_text_color_2
+#inactive_text_shadow_color=inactive_hilight_2
+active_text_color=#282828
+active_text_shadow_color=#f4f4f4
+inactive_text_color=#888888
+inactive_text_shadow_color=#fafafa
+#inactive_text_color=#787878
+#inactive_text_shadow_color=#f8f8f8
+title_shadow_active=true
+title_shadow_inactive=true
+full_width_title=true
+title_vertical_offset_active=2
+title_vertical_offset_inactive=2
+button_offset=0
+button_spacing=1
+maximized_offset=0
+
+shadow_delta_y=-8
+shadow_delta_x=0
+shadow_delta_height=2
+shadow_delta_width=0
+shadow_opacity=35
+
+show_app_icon=true
+button_layout=O|HMC
