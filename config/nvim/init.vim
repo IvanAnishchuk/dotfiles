@@ -10,6 +10,7 @@ set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
+set nomodeline
 syntax on
 syntax enable
 
@@ -171,8 +172,8 @@ let g:html_indent_tags = 'li\|p'
 
 " Interpreters
 " Needed for deoplete (might cause some trouble elsewhere)
-let g:python3_host_prog = expand("~/.virtualenvs/py3-bDrSxo4D/bin/python3")
-let g:python_host_prog = expand("~/.virtualenvs/py2-vSbVubQ3/bin/python")
+let g:python3_host_prog = expand("~/.local/share/virtualenvs/py3-bDrSxo4D/bin/python3")
+let g:python_host_prog = expand("~/.local/share/virtualenvs/py2-vSbVubQ3/bin/python")
 
 " Autocompletion
 let g:deoplete#enable_at_startup = 1

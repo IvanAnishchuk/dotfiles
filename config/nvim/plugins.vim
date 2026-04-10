@@ -24,6 +24,7 @@ Plug 'janko-m/vim-test'
 Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim'
 "Plug 'davidhalter/jedi-vim'
+" I should really switch to ack.vim
 Plug 'rking/ag.vim'
 " Colors
 Plug 'altercation/vim-colors-solarized'
@@ -33,6 +34,8 @@ Plug 'IvanAnishchuk/pychimp-vim'
 "Plug 'IvanAnishchuk/fb2-vim'
 "Plug 'z2v/vim-yo-spell'
 "Plug 'klen/rope-vim'
+Plug 'raimon49/requirements.txt.vim'
+
 
 if filereadable(expand("~/.config/nvim/plugins.local.vim"))
   source ~/.config/nvim/plugins.local.vim

@@ -156,6 +156,7 @@ PERL_MM_OPT="INSTALL_BASE=/${HOME}/perl5"; export PERL_MM_OPT;
 
 # Python
 export PIP_DOWNLOAD_CACHE="${HOME}/.pip_download_cache"
+export MYPYPATH="${HOME}/mypy-django/"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -168,3 +169,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 if [ x"$TERM" == x"xterm-256color" ]; then
     export NVIM_TUI_ENABLE_TRUE_COLOR=1
 fi
+
+eval "$(thefuck --alias)"
