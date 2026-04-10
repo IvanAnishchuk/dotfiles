@@ -1,52 +1,60 @@
 [init]
-  templatedir = ~/.config/git_template
+	templatedir = ~/.config/git_template
+	defaultBranch = main
 [push]
-  default = current
+	default = current
 [color]
-  ui = auto
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
+	ui = auto
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
 [alias]
-  aa = add --all
-  ap = add --patch
-  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
-  ci = commit -v
-  co = checkout
-  lost = log --stat
-  pf = push --force-with-lease
-  st = status
-  up = pull --rebase
-  pur = pull --rebase
-  unpull = reset --hard HEAD@{1}
-  ; usage: remote defaultbranch authoremail (regexp) branches to keep (regexp)
-  prunebranchesadvanced = "!f() { git for-each-ref --sort=-committerdate --merged "${1}/${2}" --format='%(authoremail)%(refname:short)' refs/heads | grep '^<'"${3}"'>' | grep -Po '<[^>]*>\\K.*' | grep -v '^'"${4}"'$' | while read branch; do echo git branch -d "${branch}"; git push --delete "${1}" "${branch}"; echo git branch -dr "${branch}"; done ; }; f"
-  ; defaults set here, overrride in local or repo config if needed
-  prunebranchesby = "!f() { git prunebranchesadvanced origin develop "${1}" 'develop\\|master' ; }; f"
-  ; prune regardless of author (likewise, override)
-  prunebranchesall = "!f() { git prunebranchesadvanced origin develop '.*' 'develop\\|master' ; }; f"
-  ; prune only mine (override if use more than one identity)
-  prunebranches = !git prunebranchesby $(git config user.email)
-  oldest-ancestor = !bash -c 'diff -u <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1'
+	aa = add --all
+	ap = add --patch
+	branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+	ci = commit -v
+	co = checkout
+	lost = log --stat
+	pf = push --force-with-lease
+	st = status
+	up = pull --rebase
+	pur = pull --rebase
+	unpull = reset --hard HEAD@{1}
+	; usage: remote defaultbranch authoremail (regexp) branches to keep (regexp)
+	prunebranchesadvanced = "!f() { git for-each-ref --sort=-committerdate --merged "${1}/${2}" --format='%(authoremail)%(refname:short)' refs/heads | grep '^<'"${3}"'>' | grep -Po '<[^>]*>\\K.*' | grep -v '^'"${4}"'$' | while read branch; do echo git branch -d "${branch}"; git push --delete "${1}" "${branch}"; echo git branch -dr "${branch}"; done ; }; f"
+	; defaults set here, overrride in local or repo config if needed
+	prunebranchesby = "!f() { git prunebranchesadvanced origin develop "${1}" 'develop\\|master' ; }; f"
+	; prune regardless of author (likewise, override)
+	prunebranchesall = "!f() { git prunebranchesadvanced origin develop '.*' 'develop\\|master' ; }; f"
+	; prune only mine (override if use more than one identity)
+	prunebranches = !git prunebranchesby $(git config user.email)
+	oldest-ancestor = !bash -c 'diff -u <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1'
 
 [core]
-  editor = vim
-  excludesfile = ~/.config/git/ignore
-  autocrlf = input
+	editor = vim
+	excludesfile = ~/.config/git/ignore
+	autocrlf = input
 [merge]
-  ff = only
-  tool = meld
+	ff = only
+	tool = meld
 [commit]
-  template = ~/.config/git/message
-  gpgsign = true
+	template = ~/.config/git/message
+	gpgsign = true
 [fetch]
-  prune = true
+	prune = true
 [rebase]
-  autosquash = true
+	autosquash = true
 [tag]
-  forcesignannotated = True
+	forcesignannotated = True
+
+# TODO: find a cleaner, more universal approach for blame.ignoreRevsFile —
+# setting it globally breaks `git blame` on repos that don't have a
+# .git-blame-ignore-revs file. Revisit after the phase A/B rewrite lands.
+[blame]
+	#ignoreRevsFile = .git-blame-ignore-revs
+
 [include]
-  path = ~/.config/git/config.local
-[gpg]
-  program = gpg
+	path = ~/.config/git/config.local
+#[gpg]
+#	program = gpg
