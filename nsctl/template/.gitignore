@@ -1,0 +1,16 @@
+# Private keys MUST NOT be committed in plaintext
+keys/ssh/id_*
+!keys/ssh/id_*.pub
+!keys/ssh/id_*.gpg
+!keys/ssh/id_*.toml
+keys/gnupg/private-*
+!keys/gnupg/private-*.gpg
+!keys/gnupg/private-*.toml
+
+# GPG agent sockets
+S.gpg-agent*
+
+# Python
+__pycache__/
+*.pyc
+.venv/

@@ -1,0 +1,10 @@
+# Identity namespace: {{NAME}}
+# Sourced by bashrc when this namespace is active (via rcm tag)
+
+export DOTFILES_ID="{{NAME}}"
+export GNUPGHOME="$HOME/.gnupg-{{NAME}}"
+export PASSWORD_STORE_DIR="$HOME/dotfiles-id-{{NAME}}"
+
+# PS1 marker
+export NSCTL_PROMPT_COLOR="{{PROMPT_COLOR}}"
+export NSCTL_PROMPT_MARKER="{{NAME}}"
