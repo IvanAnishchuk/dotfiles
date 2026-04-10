@@ -2,11 +2,19 @@
 
 touch "$HOME"/.psqlrc.local
 
+# vim-plug bootstrap for the lua-based init.lua (the old plugins.vim
+# was retired in phase A1; init.lua now declares plugins itself).
 if [ ! -e "$HOME"/.config/nvim/autoload/plug.vim ]; then
   curl -fLo "$HOME"/.config/nvim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-nvim -u $HOME/.config/nvim/plugins.vim +PlugUpgrade +PlugInstall +PlugClean\! +qa
-rm $HOME/dotfiles/config/nvim/autoload/plug.vim.old $HOME/.config/nvim/autoload/plug.vim.old
+if command -v nvim >/dev/null; then
+  nvim --headless +PlugUpgrade +PlugInstall +"PlugClean!" +qa 2>&1 | sed '/^$/d' || true
+fi
+rm -f "$HOME"/.config/nvim/autoload/plug.vim.old
 
-fc-cache -f -v
+# Refresh the user font cache only if fc-cache is available
+# (gui-only hosts; on termux/cloud servers this is absent).
+if command -v fc-cache >/dev/null; then
+  fc-cache -f >/dev/null 2>&1 || true
+fi
