@@ -15,6 +15,11 @@ level — anything under `archive/` is inert until you move it back.
   `mv archive/host-yoga host-yoga && rcup`.
 - `themes/` — XFCE Evolution themes (~8 MB). Kept for nostalgia.
   Not used by any current host.
+- `repo/` — the old pipenv-based Python CLI installer
+  (`sync.sh` + `py3/Pipfile{,.lock}` + `py3/freeze.txt` snapshot
+  of the deleted venv). Replaced by the planned `tools-sync` (uv)
+  in phase B; kept here as a reference for which CLIs the user
+  used to install through pipenv.
 
 ## Why this exists
 
