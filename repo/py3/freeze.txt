@@ -1,0 +1,26 @@
+# Snapshot of `repo/py3/env/lib/python3.6/site-packages/` taken
+# 2026-04-09 just before the venv was deleted as part of the
+# phase A2/B replacement of `repo/sync.sh` with `tools-sync`.
+#
+# `pip freeze` couldn't be run because the venv's Python had a
+# hard-coded shebang pointing at `/home/hatha/dotfiles/repo/py3/`
+# (a former HOME path) and the underlying Python 3.6.8 was
+# missing libraries on the current system. The list below was
+# reconstructed from the `*.dist-info` directories that were
+# physically present on disk.
+#
+# Bootstrap tooling (pip, setuptools, wheel, virtualenv,
+# virtualenv-clone, pipenv) is omitted — that's pipenv's
+# internal management surface, not user intent.
+#
+# The full intended dependency set for this env is in Pipfile
+# and Pipfile.lock; this `freeze.txt` is just the actual
+# residue of what was installed at deletion time.
+
+certifi==2018.11.29
+greenlet==0.4.15
+lingvoreader==0.2.8
+msgpack==0.5.6
+neovim==0.2.6
+six==1.11.0
+trollius==2.2
