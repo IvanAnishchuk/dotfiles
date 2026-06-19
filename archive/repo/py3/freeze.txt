@@ -17,7 +17,7 @@
 # and Pipfile.lock; this `freeze.txt` is just the actual
 # residue of what was installed at deletion time.
 
-certifi==2018.11.29
+certifi==2024.7.4
 greenlet==0.4.15
 lingvoreader==0.2.8
 msgpack==0.5.6
