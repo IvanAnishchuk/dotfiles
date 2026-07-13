@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+# Music Player Daemon (foreground, supervised).
+supervisor=supervise-daemon
+description="Music Player Daemon"
+command="/usr/bin/mpd"
+command_args="--no-daemon ${HOME}/.config/mpd/mpd.conf"
+
+depend() {
+	use pipewire dbus
+}
+
+start_pre() {
+	# mpd does not create its own state dir tree.
+	checkpath -d -m 0700 "${HOME}/.local/share/mpd"
+	checkpath -d -m 0700 "${HOME}/.local/share/mpd/playlists"
+}
