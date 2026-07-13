@@ -1,0 +1,6 @@
+#!/sbin/openrc-run
+# Deluge BitTorrent daemon (foreground, supervised).
+supervisor=supervise-daemon
+description="Deluge BitTorrent daemon"
+command="/usr/bin/deluged"
+command_args="--do-not-daemonize --config ${HOME}/.config/deluge"
