@@ -1,5 +1,11 @@
 #!/sbin/openrc-run
 # GnuPG agent (provides gpg + ssh auth sockets under $XDG_RUNTIME_DIR/gnupg).
+#
+# NOT supervise-daemon: gpg-agent 2.5.20 has no foreground+listen mode a
+# supervisor can track. --daemon always forks (orphans to init), --server is
+# stdin-only (no sockets), and --deprecated-supervised needs socket-activation
+# FDs OpenRC doesn't hand out. gpg-agent self-relaunches on demand anyway, so we
+# just launch it GnuPG's own way (with the session bus set) and kill it on stop.
 
 # ssh signatures can't carry a display/bus per request the way gpg does (the
 # ssh-agent protocol has no OPTION to pass tty/display), so the agent must inherit
@@ -9,22 +15,37 @@
 # daemon reaches the GUI purely over the session bus (no DISPLAY/WAYLAND), so this
 # one var is all pinentry needs -- same idiom as /etc/user/init.d/gsd and
 # xdg-desktop-portal. Do NOT import the whole gnome-session environ instead: it
-# carries a PATH without /lib/rc/bin, which breaks OpenRC's own ebegin/eend in
-# supervise-daemon.sh.
+# carries a PATH without /lib/rc/bin, which breaks OpenRC's own ebegin/eend.
 DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 export DBUS_SESSION_BUS_ADDRESS
 
-supervisor=supervise-daemon
 description="GnuPG agent (gpg + ssh auth sockets)"
-command="/usr/bin/gpg-agent"
-command_args="--daemon --no-detach"
 
-start_pre() {
-	# GnuPG auto-launches the agent on demand; make this service the sole
-	# launcher so supervise-daemon owns the process (avoids "already running").
-	gpgconf --kill gpg-agent 2>/dev/null || true
+depend() {
+	after dbus
 }
 
-stop_post() {
-	gpgconf --kill gpg-agent 2>/dev/null || true
+start() {
+	ebegin "Launching gpg-agent"
+	# Be the sole launcher: evict any agent auto-started on demand (which may
+	# lack the session bus above) so ours -- with the bus -- takes over.
+	gpgconf --kill gpg-agent 2>/dev/null
+	gpg-connect-agent /bye
+	eend $? "Failed to launch gpg-agent"
+}
+
+stop() {
+	ebegin "Stopping gpg-agent"
+	gpgconf --kill gpg-agent
+	eend $? "Failed to stop gpg-agent"
+}
+
+status() {
+	# --no-autostart: probe without launching, so a status check can't start it.
+	if gpg-connect-agent --no-autostart 'GETINFO version' /bye >/dev/null 2>&1; then
+		einfo "gpg-agent is running"
+		return 0
+	fi
+	einfo "gpg-agent is not running"
+	return 3
 }

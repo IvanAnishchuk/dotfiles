@@ -38,14 +38,24 @@ command="/usr/bin/ssh-agent"
 command_args="-D -a ${XDG_RUNTIME_DIR}/ssh-agent.sock"
 ```
 
-All three daemons offer a foreground/non-detaching mode, so all use
-`supervisor=supervise-daemon`:
+`mpd` and `deluged` have real foreground modes, so they use
+`supervisor=supervise-daemon`. **`gpg-agent` does not** and is managed
+differently (see its section):
 
-| daemon      | foreground flag                    | note                                        |
+| daemon      | mode                               | note                                        |
 |-------------|------------------------------------|---------------------------------------------|
-| `gpg-agent` | `--daemon --no-detach`             | `--supervised` is now `--deprecated-supervised` (GnuPG 2.5.20) |
+| `gpg-agent` | launch via `gpg-connect-agent`     | no foreground+listen mode exists in 2.5.20; not supervised |
 | `mpd`       | `--no-daemon`                      | native `pipewire` output available          |
 | `deluged`   | `--do-not-daemonize` (`-d`)        | config dir `~/.config/deluge` already exists |
+
+**Why gpg-agent can't be supervise-daemon'd** (learned during implementation):
+`--daemon` always forks and orphans to init (`--no-detach` doesn't stop it),
+`--server` is stdin-only and opens no sockets, and `--deprecated-supervised`
+needs socket-activation FDs OpenRC doesn't provide. There is no
+foreground-and-listen invocation, so a supervisor can't track it — it reports
+`stopped` while an orphan agent runs. Since gpg-agent self-relaunches on demand,
+respawn buys nothing; the service just launches it (with the session bus set)
+and kills it on stop.
 
 ### Environment
 
@@ -106,27 +116,45 @@ target, so the committed repo files carry the exec bit.
 DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 export DBUS_SESSION_BUS_ADDRESS
 
-supervisor=supervise-daemon
 description="GnuPG agent (gpg + ssh auth sockets)"
-command="/usr/bin/gpg-agent"
-command_args="--daemon --no-detach"
 
-start_pre() {
-	# GnuPG auto-launches the agent on demand; make this service the sole
-	# launcher so supervise-daemon owns the process (avoids "already running").
-	gpgconf --kill gpg-agent 2>/dev/null || true
+depend() {
+	after dbus
 }
 
-stop_post() {
-	gpgconf --kill gpg-agent 2>/dev/null || true
+start() {
+	ebegin "Launching gpg-agent"
+	# Be the sole launcher: evict any agent auto-started on demand (which may
+	# lack the session bus above) so ours -- with the bus -- takes over.
+	gpgconf --kill gpg-agent 2>/dev/null
+	gpg-connect-agent /bye
+	eend $? "Failed to launch gpg-agent"
+}
+
+stop() {
+	ebegin "Stopping gpg-agent"
+	gpgconf --kill gpg-agent
+	eend $? "Failed to stop gpg-agent"
+}
+
+status() {
+	# --no-autostart: probe without launching, so a status check can't start it.
+	if gpg-connect-agent --no-autostart 'GETINFO version' /bye >/dev/null 2>&1; then
+		einfo "gpg-agent is running"
+		return 0
+	fi
+	einfo "gpg-agent is not running"
+	return 3
 }
 ```
 
-**Rationale for `start_pre`/`stop_post`:** without them, any gpg invocation before
-the service starts leaves a stray agent, and `gpg-agent --daemon` would fail with
-"already running", which supervise-daemon reports as a failed start. Killing first
-guarantees the supervised process is the live one. `stop_post` clears sockets on
-stop.
+**Why custom `start`/`stop`/`status`:** gpg-agent has no supervisable foreground
+mode (above), so instead of `command`/`supervisor` the service launches it
+GnuPG's own way. `start` first `gpgconf --kill`s any on-demand agent (which may
+have come up without the session bus), then `gpg-connect-agent /bye` launches a
+fresh one that inherits the exported bus. `stop` kills it. `status` probes with
+`--no-autostart` so checking state can't itself start the agent. Losing
+supervise-daemon respawn is fine: gpg-agent self-relaunches on demand.
 
 ### `config/rc/init.d/mpd`
 
@@ -206,12 +234,14 @@ are a documented runtime step the user runs; the design does not automate them.
 
 ## Verification
 
-- `rc-service --user gpg-agent status` → started; `gpgconf --list-dirs agent-ssh-socket`
-  socket present; `SSH_AUTH_SOCK` unchanged and usable (`ssh-add -l`).
+- `rc-service --user gpg-agent status` → running (custom `status` probe); an ssh
+  op on a `confirm` key (`ssh -T git@github.com`) pops pinentry instead of
+  returning `agent refused operation`; `SSH_AUTH_SOCK` unchanged and usable.
 - `rc-service --user mpd status` → started; `mpc status` (or a client on `127.0.0.1:6600`)
   responds; audio output enumerates the pipewire sink.
 - `rc-service --user deluge status` → started; deluge client connects to the daemon.
-- Respawn: `kill` the supervised PID and confirm supervise-daemon restarts it.
+- Respawn (mpd/deluge only): `kill` the supervised PID and confirm supervise-daemon
+  restarts it. gpg-agent is not supervised (self-relaunches on demand instead).
 
 ## Known limitation / deferred
 
