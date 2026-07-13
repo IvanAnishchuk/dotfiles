@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+# GnuPG agent (provides gpg + ssh auth sockets under $XDG_RUNTIME_DIR/gnupg).
+supervisor=supervise-daemon
+description="GnuPG agent (gpg + ssh auth sockets)"
+command="/usr/bin/gpg-agent"
+command_args="--daemon --no-detach"
+
+start_pre() {
+	# GnuPG auto-launches the agent on demand; make this service the sole
+	# launcher so supervise-daemon owns the process (avoids "already running").
+	gpgconf --kill gpg-agent 2>/dev/null || true
+}
+
+stop_post() {
+	gpgconf --kill gpg-agent 2>/dev/null || true
+}
