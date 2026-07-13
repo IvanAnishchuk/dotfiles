@@ -42,7 +42,9 @@ stop() {
 
 status() {
 	# --no-autostart: probe without launching, so a status check can't start it.
-	if gpg-connect-agent --no-autostart 'GETINFO version' /bye >/dev/null 2>&1; then
+	# NB: gpg-connect-agent exits 0 even when no agent is running, so key off the
+	# 'OK' response, not the exit code -- otherwise status always reports running.
+	if gpg-connect-agent --no-autostart 'GETINFO version' /bye 2>/dev/null | grep -q '^OK'; then
 		einfo "gpg-agent is running"
 		return 0
 	fi

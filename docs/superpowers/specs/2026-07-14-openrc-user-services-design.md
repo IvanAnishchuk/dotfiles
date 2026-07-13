@@ -139,7 +139,9 @@ stop() {
 
 status() {
 	# --no-autostart: probe without launching, so a status check can't start it.
-	if gpg-connect-agent --no-autostart 'GETINFO version' /bye >/dev/null 2>&1; then
+	# NB: gpg-connect-agent exits 0 even when no agent is running, so key off the
+	# 'OK' response, not the exit code -- otherwise status always reports running.
+	if gpg-connect-agent --no-autostart 'GETINFO version' /bye 2>/dev/null | grep -q '^OK'; then
 		einfo "gpg-agent is running"
 		return 0
 	fi
@@ -153,8 +155,10 @@ mode (above), so instead of `command`/`supervisor` the service launches it
 GnuPG's own way. `start` first `gpgconf --kill`s any on-demand agent (which may
 have come up without the session bus), then `gpg-connect-agent /bye` launches a
 fresh one that inherits the exported bus. `stop` kills it. `status` probes with
-`--no-autostart` so checking state can't itself start the agent. Losing
-supervise-daemon respawn is fine: gpg-agent self-relaunches on demand.
+`--no-autostart` so checking state can't itself start the agent — and keys off
+the `OK` response, because `gpg-connect-agent` exits `0` whether or not an agent
+is running (keying off the exit code made `status` always report "running").
+Losing supervise-daemon respawn is fine: gpg-agent self-relaunches on demand.
 
 ### `config/rc/init.d/mpd`
 
