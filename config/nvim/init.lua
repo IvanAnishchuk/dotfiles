@@ -21,6 +21,8 @@ Plug('neovim/nvim-lspconfig')
 Plug('onsails/lspkind.nvim')
 Plug('stevearc/conform.nvim')
 
+Plug('Julian/lean.nvim')
+
 -- feels a little strange lol
 --Plug('github/copilot.vim')
 
@@ -114,6 +116,10 @@ require('lspkind').init({
     },
 })
 
+
+-- lean
+
+require("lean").setup { mappings = true }
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
