@@ -30,6 +30,15 @@
 	; prune only mine (override if use more than one identity)
 	prunebranches = !git prunebranchesby $(git config user.email)
 	oldest-ancestor = !bash -c 'diff -u <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1'
+	; --- repo-orientation snapshots (resume / diff-prep; replaces the compound cd && echo && git one-liner) ---
+	; TODO: next iteration may graduate these to a richer python helper under
+	;       ~/.claude/scripts/ (e.g. folding in `gh pr view` PR state) — aliases first.
+	; snap [N]: branch + tracking + short status, then last N commits (default 6)
+	snap = "!f() { git status -sb; echo; git log --oneline -n "${1:-6}"; }; f"
+	; dstat [base]: diffstat of HEAD vs base (default main), merge-base 3-dot range
+	dstat = "!f() { git diff "${1:-main}"...HEAD --stat; }; f"
+	; bdiff [base]: full HEAD-vs-base patch (default main), 3-dot — review-scope capture (`git -C X bdiff > review.diff`)
+	bdiff = "!f() { git diff "${1:-main}"...HEAD; }; f"
 
 [core]
 	editor = vim
