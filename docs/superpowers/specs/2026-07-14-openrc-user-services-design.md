@@ -47,7 +47,7 @@ All three daemons offer a foreground/non-detaching mode, so all use
 | `mpd`       | `--no-daemon`                      | native `pipewire` output available          |
 | `deluged`   | `--do-not-daemonize` (`-d`)        | config dir `~/.config/deluge` already exists |
 
-### Environment (no change)
+### Environment
 
 bashrc already derives the gpg env from `gpgconf`, not hardcoded paths:
 
@@ -58,8 +58,28 @@ export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"   # -> /run/user/
 
 `~/.gnupg/gpg-agent.conf` already has `enable-ssh-support`. An OpenRC-managed
 `gpg-agent` creates its sockets under `$XDG_RUNTIME_DIR/gnupg/` — the exact path
-`SSH_AUTH_SOCK` already resolves to. **No bashrc/env change is required**; tools
-reach the sockets as they do today.
+`SSH_AUTH_SOCK` already resolves to. **No bashrc change is required**; tools reach
+the sockets as they do today.
+
+**But the service must hand the agent the session bus** (fixed after first cut).
+gpg feeds the agent a live tty/display per call via Assuan `OPTION`s, so gpg
+pinentry works from a terminal. The **ssh-agent protocol has no such channel**,
+so ssh-triggered signatures use the agent's *own launch environment*.
+OpenRC/supervise-daemon start the agent with a scrubbed env (no
+`DBUS_SESSION_BUS_ADDRESS`), so `pinentry-gnome3` can't reach the GNOME/gcr
+prompter and ssh signing fails with `agent refused operation` — most visibly for
+the `confirm`-flagged keys in `~/.gnupg/sshcontrol`. On this pure-Wayland GNOME
+box even `gnome-shell` carries no `DISPLAY`/`WAYLAND_DISPLAY`; every session daemon
+reaches the GUI via `DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus`. The
+service therefore exports exactly that one var — the same idiom as
+`/etc/user/init.d/gsd` and `xdg-desktop-portal`.
+
+**Rejected alternative — importing the whole `gnome-session` environ** (the
+`gnome-shell-wayland` `start_pre` pattern, tried first): it drags in the session's
+`PATH`, which lacks `/lib/rc/bin`, so OpenRC's own `ebegin`/`eend` helpers (real
+binaries there, not shell functions) become "command not found" inside
+`supervise-daemon.sh` and the service fails to start. Set only the bus var; never
+import the session `PATH`.
 
 ## Files (all onboarded into the repo)
 
@@ -78,6 +98,14 @@ target, so the committed repo files carry the exec bit.
 ```sh
 #!/sbin/openrc-run
 # GnuPG agent (provides gpg + ssh auth sockets under $XDG_RUNTIME_DIR/gnupg).
+
+# Hand the agent the session bus so ssh-triggered pinentry-gnome3 can reach the
+# GNOME/gcr prompter (ssh, unlike gpg, can't pass a display/bus per request).
+# One var is enough on Wayland GNOME; do NOT import the whole session environ --
+# its PATH lacks /lib/rc/bin and breaks OpenRC's ebegin/eend.
+DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+export DBUS_SESSION_BUS_ADDRESS
+
 supervisor=supervise-daemon
 description="GnuPG agent (gpg + ssh auth sockets)"
 command="/usr/bin/gpg-agent"

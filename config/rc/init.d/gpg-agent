@@ -1,5 +1,19 @@
 #!/sbin/openrc-run
 # GnuPG agent (provides gpg + ssh auth sockets under $XDG_RUNTIME_DIR/gnupg).
+
+# ssh signatures can't carry a display/bus per request the way gpg does (the
+# ssh-agent protocol has no OPTION to pass tty/display), so the agent must inherit
+# the session bus at launch or pinentry-gnome3 can't reach the GNOME/gcr prompter
+# -- ssh ops then fail with "agent refused operation", worst for the confirm/
+# passphrase keys in ~/.gnupg/sshcontrol. On this Wayland GNOME box every session
+# daemon reaches the GUI purely over the session bus (no DISPLAY/WAYLAND), so this
+# one var is all pinentry needs -- same idiom as /etc/user/init.d/gsd and
+# xdg-desktop-portal. Do NOT import the whole gnome-session environ instead: it
+# carries a PATH without /lib/rc/bin, which breaks OpenRC's own ebegin/eend in
+# supervise-daemon.sh.
+DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+export DBUS_SESSION_BUS_ADDRESS
+
 supervisor=supervise-daemon
 description="GnuPG agent (gpg + ssh auth sockets)"
 command="/usr/bin/gpg-agent"
