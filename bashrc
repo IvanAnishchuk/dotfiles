@@ -38,4 +38,7 @@ export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export PATH="$PATH:/home/user/.foundry/bin"
 
 # uv
-export PATH="/home/user/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# elan
+export PATH="$HOME/.elan/bin:$PATH"
