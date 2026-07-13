@@ -15,3 +15,5 @@ venv
 !tmp/cache/.keep
 *.py[co]
 __pycache__
+
+**/.claude/settings.local.json
