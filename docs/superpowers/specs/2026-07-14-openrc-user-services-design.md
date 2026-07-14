@@ -98,6 +98,7 @@ import the session `PATH`.
 | `config/rc/init.d/gpg-agent` | `~/.config/rc/init.d/gpg-agent`| gpg-agent service  |
 | `config/rc/init.d/mpd`       | `~/.config/rc/init.d/mpd`      | mpd service        |
 | `config/rc/init.d/deluge`    | `~/.config/rc/init.d/deluge`   | deluged service    |
+| `config/rc/init.d/dbus-activation-env` | `~/.config/rc/init.d/dbus-activation-env` | seed bus activation env (keyring adoption) |
 | `config/mpd/mpd.conf`        | `~/.config/mpd/mpd.conf`       | starter mpd config |
 
 The init scripts must be executable (`chmod +x`); rcm preserves mode on the symlink
@@ -226,6 +227,45 @@ command_args="--do-not-daemonize --config ${HOME}/.config/deluge"
 
 `~/.config/deluge` already exists, so no config scaffolding is needed.
 
+### `config/rc/init.d/dbus-activation-env` (GNOME keyring Secret Service)
+
+**Symptom:** the GNOME login keyring reprompts for its password 2–3× per login,
+leaving a trail of stale `~/.cache/keyring-*` dirs. Not gpg-agent, not a password
+mismatch (PAM is correct — `gdm-password` carries all three `pam_gnome_keyring`
+lines — and pam unlocks the login keyring at login).
+
+**Root cause — the same scrubbed-env defect as gpg-agent, one layer over.** The
+session bus is the Gentoo `dbus` OpenRC *user* service; nothing seeds its D-Bus
+*activation* environment (on a systemd session `gnome-session` runs
+`dbus-update-activation-environment --all`; there is no equivalent here). So when
+an app asks for a secret, the bus D-Bus-activates `org.freedesktop.secrets`
+(`Exec=/usr/bin/gnome-keyring-daemon --start --components=secrets`) with a scrubbed
+env — no `GNOME_KEYRING_CONTROL` — and that fresh daemon can't adopt the
+pam-unlocked login keyring, so it comes up fresh + locked and prompts. Each app
+that asks repeats it.
+
+**Fix — seed the activation env once, at bus level, before any consumer.** A
+oneshot user service pulls `GNOME_KEYRING_CONTROL` (pam-set at login) from the
+`gnome-session-leader` process's environ — the same source `gnome-shell-wayland`
+imports from — and pushes it into the bus activation env with
+`dbus-update-activation-environment`. Ordered `after gnome-session-dbus.gnome` and
+`before gnome-shell-wayland gnome-settings-daemon-wayland`, so it runs before the
+first secret consumer; the on-demand `--start` then adopts the unlocked login
+keyring instead of spawning a locked one. Failure mode is safe: nothing `need`s
+it, so if the leader isn't up it errors and returns without blocking the session.
+
+This is the *altitude* fix (seed the bus env once) chosen over per-consumer env
+hacks. It **replaced** an earlier `bin/keyring-activation-env` +
+`config/autostart/keyring-activation-env.desktop` attempt, which did the same push
+from a GNOME session autostart (Applications phase) and lost the race against
+on-demand activation. Those two files were removed — keeping them would only
+muddy which mechanism unlocked the keyring on the verifying login.
+
+The `start()` wait for the leader pid is deliberately **bounded** (~3s): gnome-shell
+is ordered after this oneshot and waits for it to return, so an unbounded wait
+would stall the session. Normally the leader is already up and the loop exits at
+once; on failure the service returns without blocking (nothing `need`s it).
+
 ## Install / enable (runtime — not tracked in the repo)
 
 Runlevel symlinks under `~/.config/rc/runlevels/` are runtime state, deliberately
@@ -237,6 +277,10 @@ for s in gpg-agent mpd deluge; do
 	rc-update --user add "$s" default
 	rc-service --user "$s" start
 done
+
+# dbus-activation-env belongs in the gnome-session runlevel (must run before
+# gnome-shell/gsd), not default; it takes effect at the next login.
+rc-update --user add dbus-activation-env gnome-session
 ```
 
 (`XDG_RUNTIME_DIR` must be set — it already is on a normal login.) These commands

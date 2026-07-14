@@ -1,0 +1,60 @@
+#!/sbin/openrc-run
+# Seed the session bus's D-Bus *activation* environment for the OpenRC-driven
+# GNOME session.
+#
+# On a systemd session gnome-session runs `dbus-update-activation-environment
+# --all` so that services the bus activates on demand inherit the session env.
+# Nothing does that here, so the bus activates services with a scrubbed env. The
+# visible casualty is the GNOME keyring Secret Service: an app asks for a secret,
+# the bus D-Bus-activates `org.freedesktop.secrets`
+# (Exec=gnome-keyring-daemon --start --components=secrets), that fresh daemon has
+# no GNOME_KEYRING_CONTROL so it can't adopt the pam-unlocked login keyring, and
+# comes up fresh + locked -- one password prompt per activation (the "unlock the
+# keyring N times every login" bug, with a trail of stale ~/.cache/keyring-* dirs).
+#
+# pam_gnome_keyring sets GNOME_KEYRING_CONTROL at login, before any user service;
+# it rides in the gnome-session leader's environ (that's also where gnome-shell
+# picks it up). Pull it from there and push it into the bus activation env, once,
+# BEFORE any secret consumer (gnome-shell, gsd) starts -- so the on-demand daemon
+# adopts the unlocked login keyring instead of spawning a locked one. Ordering
+# ahead of the consumers is what makes this reliable where the old session
+# autostart (Applications phase) lost the race.
+
+DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+export DBUS_SESSION_BUS_ADDRESS
+
+description="Seed D-Bus session activation env (GNOME keyring adoption)"
+
+_leader="${XDG_RUNTIME_DIR}/gnome-session-leader.pid"
+
+depend() {
+    need dbus
+    after gnome-session-dbus.gnome
+    before gnome-shell-wayland gnome-settings-daemon-wayland
+}
+
+start() {
+    ebegin "Seeding D-Bus activation env (keyring adoption)"
+    # We are ordered before gnome-shell, which waits for this oneshot to return,
+    # so the wait for the leader pid MUST be bounded (never hang the session).
+    # ~3s is ample; normally the leader is already up and the loop exits at once.
+    _n=0
+    while [ ! -f "${_leader}" ] && [ "${_n}" -lt 30 ]; do
+        sleep 0.1
+        _n=$((_n + 1))
+    done
+    if [ ! -f "${_leader}" ]; then
+        eend 1 "no ${_leader##*/} after 3s -- graphical session not up yet"
+        return 1
+    fi
+    read -r _lpid < "${_leader}"
+    # Take the pam-set value straight from the leader's environ (NUL-delimited),
+    # not from our own scrubbed OpenRC env, then hand it to the bus verbatim.
+    _gkc=$(tr '\0' '\n' < "/proc/${_lpid}/environ" | grep -m1 '^GNOME_KEYRING_CONTROL=')
+    if [ -z "${_gkc}" ]; then
+        eend 1 "GNOME_KEYRING_CONTROL not in session leader environ"
+        return 1
+    fi
+    dbus-update-activation-environment "${_gkc}"
+    eend $? "Failed to seed activation environment"
+}
