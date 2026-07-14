@@ -125,9 +125,12 @@ depend() {
 start() {
 	ebegin "Launching gpg-agent"
 	# Be the sole launcher: evict any agent auto-started on demand (which may
-	# lack the session bus above) so ours -- with the bus -- takes over.
+	# lack the session bus above), then launch it explicitly with gpgconf so the
+	# service -- not a stray connection probe -- owns the invocation. (Using
+	# `gpg-connect-agent /bye` instead only autostarts the agent as a side effect
+	# of connecting, with an 8s connect-wait.)
 	gpgconf --kill gpg-agent 2>/dev/null
-	gpg-connect-agent /bye
+	gpgconf --launch gpg-agent
 	eend $? "Failed to launch gpg-agent"
 }
 
@@ -153,8 +156,11 @@ status() {
 **Why custom `start`/`stop`/`status`:** gpg-agent has no supervisable foreground
 mode (above), so instead of `command`/`supervisor` the service launches it
 GnuPG's own way. `start` first `gpgconf --kill`s any on-demand agent (which may
-have come up without the session bus), then `gpg-connect-agent /bye` launches a
-fresh one that inherits the exported bus. `stop` kills it. `status` probes with
+have come up without the session bus), then `gpgconf --launch gpg-agent` launches
+a fresh one (inheriting the exported bus) — an *explicit* launch, not the
+`gpg-connect-agent /bye` side-effect autostart (which comes with an 8s
+connect-wait and reads as "launched by a connection"). `stop` kills it. `status`
+probes with
 `--no-autostart` so checking state can't itself start the agent — and keys off
 the `OK` response, because `gpg-connect-agent` exits `0` whether or not an agent
 is running (keying off the exit code made `status` always report "running").

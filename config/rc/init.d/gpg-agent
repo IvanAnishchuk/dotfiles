@@ -28,9 +28,12 @@ depend() {
 start() {
 	ebegin "Launching gpg-agent"
 	# Be the sole launcher: evict any agent auto-started on demand (which may
-	# lack the session bus above) so ours -- with the bus -- takes over.
+	# lack the session bus above), then launch it explicitly with gpgconf so the
+	# service -- not a stray connection probe -- owns the invocation. (Using
+	# `gpg-connect-agent /bye` instead only autostarts the agent as a side effect
+	# of connecting, with an 8s connect-wait.)
 	gpgconf --kill gpg-agent 2>/dev/null
-	gpg-connect-agent /bye
+	gpgconf --launch gpg-agent
 	eend $? "Failed to launch gpg-agent"
 }
 
