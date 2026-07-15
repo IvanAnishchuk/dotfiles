@@ -12,6 +12,14 @@
 # comes up fresh + locked -- one password prompt per activation (the "unlock the
 # keyring N times every login" bug, with a trail of stale ~/.cache/keyring-* dirs).
 #
+# The same scrubbed activation env also breaks screen sharing. The on-demand
+# xdg-desktop-portal frontend never receives XDG_CURRENT_DESKTOP, so it can't
+# match a backend's UseIn= and never exports org.freedesktop.portal.ScreenCast.
+# Wayland apps that capture through the portal (Electron/Jitsi, Firefox, OBS)
+# then fail with "No such interface org.freedesktop.portal.ScreenCast" -- capture
+# silently does nothing. Seeding the session-identity vars here, before the
+# portal is first activated, fixes both casualties at the one shared root.
+#
 # pam_gnome_keyring sets GNOME_KEYRING_CONTROL at login, before any user service;
 # it rides in the gnome-session leader's environ (that's also where gnome-shell
 # picks it up). Pull it from there and push it into the bus activation env, once,
@@ -23,7 +31,7 @@
 DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 export DBUS_SESSION_BUS_ADDRESS
 
-description="Seed D-Bus session activation env (GNOME keyring adoption)"
+description="Seed D-Bus session activation env (keyring adoption + portal session vars)"
 
 _leader="${XDG_RUNTIME_DIR}/gnome-session-leader.pid"
 
@@ -34,7 +42,7 @@ depend() {
 }
 
 start() {
-    ebegin "Seeding D-Bus activation env (keyring adoption)"
+    ebegin "Seeding D-Bus activation env (keyring + portal session vars)"
     # We are ordered before gnome-shell, which waits for this oneshot to return,
     # so the wait for the leader pid MUST be bounded (never hang the session).
     # ~3s is ample; normally the leader is already up and the loop exits at once.
@@ -48,13 +56,27 @@ start() {
         return 1
     fi
     read -r _lpid < "${_leader}"
-    # Take the pam-set value straight from the leader's environ (NUL-delimited),
-    # not from our own scrubbed OpenRC env, then hand it to the bus verbatim.
-    _gkc=$(tr '\0' '\n' < "/proc/${_lpid}/environ" | grep -m1 '^GNOME_KEYRING_CONTROL=')
+    # Snapshot the leader's environ once (NUL-delimited), taken straight from the
+    # leader -- not our own scrubbed OpenRC env -- then hand vars to the bus verbatim.
+    _env=$(tr '\0' '\n' < "/proc/${_lpid}/environ")
+
+    # GNOME_KEYRING_CONTROL is required: its absence means pam_gnome_keyring never
+    # ran -- a real fault -- so fail loudly (this service's original purpose).
+    _gkc=$(printf '%s\n' "${_env}" | grep -m1 '^GNOME_KEYRING_CONTROL=')
     if [ -z "${_gkc}" ]; then
         eend 1 "GNOME_KEYRING_CONTROL not in session leader environ"
         return 1
     fi
-    dbus-update-activation-environment "${_gkc}"
+    set -- "${_gkc}"
+
+    # Session-identity vars the on-demand xdg-desktop-portal stack needs (see the
+    # header): XDG_CURRENT_DESKTOP is what lets the frontend export ScreenCast.
+    # Best-effort -- seed whichever the leader actually carries, one arg each.
+    for _v in XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_SESSION_DESKTOP; do
+        _line=$(printf '%s\n' "${_env}" | grep -m1 "^${_v}=")
+        [ -n "${_line}" ] && set -- "$@" "${_line}"
+    done
+
+    dbus-update-activation-environment "$@"
     eend $? "Failed to seed activation environment"
 }
